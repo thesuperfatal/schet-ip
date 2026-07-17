@@ -11,6 +11,10 @@
   "engines": {
     "node": ">=20"
   },
+  "overrides": {
+    "@emnapi/core": "1.11.2",
+    "@emnapi/runtime": "1.11.2"
+  },
   "dependencies": {
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
