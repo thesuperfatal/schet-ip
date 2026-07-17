@@ -29,7 +29,7 @@ function todayIso(): string {
 export default function CreatePageClient() {
   const searchParams = useSearchParams();
   const type = (searchParams.get("type") === "akt" ? "akt" : "schet") as DocumentType;
-  const previewRef = useRef<HTMLDivElement>(null);
+  const pdfRef = useRef<HTMLDivElement>(null);
 
   const [seller, setSeller] = useState<SellerInfo>(emptySeller());
   const [buyer, setBuyer] = useState<BuyerInfo>(emptyBuyer());
@@ -83,7 +83,7 @@ export default function CreatePageClient() {
       return;
     }
 
-    if (!previewRef.current) return;
+    if (!pdfRef.current) return;
 
     setLoading(true);
     try {
@@ -92,7 +92,7 @@ export default function CreatePageClient() {
         type === "schet"
           ? `schet-${number}-${date}.pdf`
           : `akt-${number}-${date}.pdf`;
-      await downloadPdfFromElement(previewRef.current, filename);
+      await downloadPdfFromElement(pdfRef.current, filename);
       incrementDocCount();
       setRemaining(getRemainingDocs());
       setMessage("PDF скачан успешно!");
@@ -207,9 +207,18 @@ export default function CreatePageClient() {
         <div className="overflow-auto rounded-xl border border-slate-200 bg-slate-100 p-4">
           <p className="mb-3 text-sm font-medium text-slate-600">Предпросмотр</p>
           <div className="inline-block origin-top-left scale-[0.55] sm:scale-[0.65] lg:scale-[0.75]">
-            <DocumentPreview data={documentData} previewRef={previewRef} />
+            <DocumentPreview data={documentData} />
           </div>
         </div>
+      </div>
+
+      {/* Полноразмерный блок вне scale — html2canvas не работает с transform */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed overflow-hidden"
+        style={{ left: "-10000px", top: 0, width: 794 }}
+      >
+        <DocumentPreview data={documentData} previewRef={pdfRef} />
       </div>
     </div>
   );

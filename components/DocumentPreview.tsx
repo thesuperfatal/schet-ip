@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { amountToWords, formatMoney } from "@/lib/amountToWords";
 import type { DocumentData } from "@/lib/types";
 
@@ -47,28 +48,31 @@ export default function DocumentPreview({ data, previewRef }: DocumentPreviewPro
         </div>
       </div>
 
-      <table className="mb-4 w-full border-collapse text-sm">
+      <table
+        className="mb-4 w-full text-sm"
+        style={{ borderCollapse: "collapse", width: "100%" }}
+      >
         <thead>
-          <tr className="bg-slate-100">
-            <th className="border border-slate-400 px-2 py-2 text-left">№</th>
-            <th className="border border-slate-400 px-2 py-2 text-left">Наименование</th>
-            <th className="border border-slate-400 px-2 py-2 text-center">Ед.</th>
-            <th className="border border-slate-400 px-2 py-2 text-center">Кол-во</th>
-            <th className="border border-slate-400 px-2 py-2 text-right">Цена</th>
-            <th className="border border-slate-400 px-2 py-2 text-right">Сумма</th>
+          <tr style={{ backgroundColor: "#f1f5f9" }}>
+            <th style={cellStyle}>№</th>
+            <th style={cellStyle}>Наименование</th>
+            <th style={{ ...cellStyle, textAlign: "center" }}>Ед.</th>
+            <th style={{ ...cellStyle, textAlign: "center" }}>Кол-во</th>
+            <th style={{ ...cellStyle, textAlign: "right" }}>Цена</th>
+            <th style={{ ...cellStyle, textAlign: "right" }}>Сумма</th>
           </tr>
         </thead>
         <tbody>
           {data.items.map((item, index) => (
             <tr key={item.id}>
-              <td className="border border-slate-400 px-2 py-2">{index + 1}</td>
-              <td className="border border-slate-400 px-2 py-2">{item.name || "—"}</td>
-              <td className="border border-slate-400 px-2 py-2 text-center">{item.unit}</td>
-              <td className="border border-slate-400 px-2 py-2 text-center">{item.qty}</td>
-              <td className="border border-slate-400 px-2 py-2 text-right">
+              <td style={cellStyle}>{index + 1}</td>
+              <td style={cellStyle}>{item.name || "—"}</td>
+              <td style={{ ...cellStyle, textAlign: "center" }}>{item.unit}</td>
+              <td style={{ ...cellStyle, textAlign: "center" }}>{item.qty}</td>
+              <td style={{ ...cellStyle, textAlign: "right" }}>
                 {formatMoney(item.price)}
               </td>
-              <td className="border border-slate-400 px-2 py-2 text-right">
+              <td style={{ ...cellStyle, textAlign: "right" }}>
                 {formatMoney(item.qty * item.price)}
               </td>
             </tr>
@@ -102,3 +106,9 @@ function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-");
   return `${d}.${m}.${y}`;
 }
+
+const cellStyle: CSSProperties = {
+  border: "1px solid #94a3b8",
+  padding: "8px",
+  textAlign: "left",
+};

@@ -5,10 +5,17 @@ export async function downloadPdfFromElement(
   element: HTMLElement,
   filename: string
 ): Promise<void> {
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+  });
+
   const canvas = await html2canvas(element, {
     scale: 2,
     useCORS: true,
     backgroundColor: "#ffffff",
+    logging: false,
+    width: element.offsetWidth,
+    height: element.offsetHeight,
   });
 
   const imgData = canvas.toDataURL("image/png");
