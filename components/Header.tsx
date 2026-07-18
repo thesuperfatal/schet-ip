@@ -8,10 +8,10 @@ export default function Header() {
           Счёт<span className="text-blue-600">ИП</span>
         </Link>
         <nav className="flex gap-4 text-sm">
-          <Link href="/create.html?type=schet" className="text-slate-600 hover:text-blue-600">
+          <Link href="/create/?type=schet" className="text-slate-600 hover:text-blue-600">
             Счёт
           </Link>
-          <Link href="/create.html?type=akt" className="text-slate-600 hover:text-blue-600">
+          <Link href="/create/?type=akt" className="text-slate-600 hover:text-blue-600">
             Акт
           </Link>
         </nav>

@@ -17,13 +17,13 @@ export default function Home() {
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
-            href="/create.html?type=schet"
+            href="/create/?type=schet"
             className="w-full rounded-xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:bg-blue-700 sm:w-auto"
           >
             Создать счёт
           </Link>
           <Link
-            href="/create.html?type=akt"
+            href="/create/?type=akt"
             className="w-full rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-800 hover:bg-slate-50 sm:w-auto"
           >
             Создать акт
