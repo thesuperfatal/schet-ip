@@ -43,7 +43,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 pb-8">
         <h2 className="mb-6 text-center text-2xl font-bold text-slate-900">Что умеет сайт</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
               href: "/create/?type=schet",
@@ -64,6 +64,11 @@ export default function Home() {
               href: "/nds/",
               title: "Калькулятор НДС",
               text: "Начислить и выделить НДС, ставки 5%/7%/22%, подсказка для УСН.",
+            },
+            {
+              href: "/summa-propisyu/",
+              title: "Сумма прописью",
+              text: "Перевод суммы в текст для договора, счёта и акта.",
             },
           ].map((item) => (
             <Link

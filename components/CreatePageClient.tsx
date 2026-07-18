@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import DocumentPreview from "@/components/DocumentPreview";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
+import { amountToWords } from "@/lib/amountToWords";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import {
   emptyBuyer,
@@ -175,6 +177,14 @@ export default function CreatePageClient() {
 
             <p className="mt-4 text-right text-lg font-semibold">
               Итого: {total.toLocaleString("ru-RU", { minimumFractionDigits: 2 })} ₽
+            </p>
+            <p className="mt-1 text-right text-sm capitalize text-slate-600">
+              {amountToWords(total)}
+            </p>
+            <p className="mt-1 text-right text-xs text-slate-500">
+              <Link href="/summa-propisyu/" className="text-blue-600 hover:underline">
+                Сумма прописью — отдельный инструмент
+              </Link>
             </p>
 
             <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">

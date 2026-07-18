@@ -74,6 +74,9 @@ export default function RootLayout({
               <Link href="/nds/" className="hover:text-blue-600">
                 НДС
               </Link>
+              <Link href="/summa-propisyu/" className="hover:text-blue-600">
+                Прописью
+              </Link>
               <Link href="/privacy/" className="hover:text-blue-600">
                 Конфиденциальность
               </Link>
