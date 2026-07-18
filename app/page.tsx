@@ -30,7 +30,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <p className="mt-6 text-sm text-slate-500">3 документа бесплатно в месяц</p>
+        <p className="mt-6 text-sm text-slate-500">Полностью бесплатно · без лимитов</p>
       </section>
 
       <section className="mx-auto grid max-w-5xl gap-6 px-4 pb-20 sm:grid-cols-3">
@@ -45,7 +45,7 @@ export default function Home() {
           },
           {
             title: "Бесплатно",
-            text: "Первые 3 документа в месяц без оплаты и без регистрации.",
+            text: "Без оплаты, без регистрации и без лимита на количество документов.",
           },
         ].map((item) => (
           <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">

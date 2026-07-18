@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import DocumentPreview from "@/components/DocumentPreview";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
-import {
-  canCreateDocument,
-  getRemainingDocs,
-  incrementDocCount,
-  loadSeller,
-  saveSeller,
-} from "@/lib/storage";
+import { loadSeller, saveSeller } from "@/lib/storage";
 import {
   emptyBuyer,
   emptyItem,
@@ -41,7 +35,7 @@ export default function CreatePageClient() {
   const [number, setNumber] = useState("1");
   const [date, setDate] = useState(todayIso());
   const [vatNote, setVatNote] = useState("Без НДС.");
-  const [remaining, setRemaining] = useState(3);
+  const [requireFields, setRequireFields] = useState(true);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -49,7 +43,6 @@ export default function CreatePageClient() {
     setType(getTypeFromUrl());
     const saved = loadSeller();
     if (saved) setSeller(saved);
-    setRemaining(getRemainingDocs());
   }, []);
 
   const documentData: DocumentData = {
@@ -78,13 +71,9 @@ export default function CreatePageClient() {
 
   async function handleDownload() {
     setMessage("");
-    if (!seller.name || !buyer.name || items.some((i) => !i.name)) {
-      setMessage("Заполните продавца, покупателя и все позиции.");
-      return;
-    }
 
-    if (!canCreateDocument()) {
-      setMessage("Лимит бесплатных документов исчерпан (3 в месяц).");
+    if (requireFields && (!seller.name || !buyer.name || items.some((i) => !i.name))) {
+      setMessage("Заполните продавца, покупателя и все позиции — или снимите галочку проверки.");
       return;
     }
 
@@ -98,8 +87,6 @@ export default function CreatePageClient() {
           ? `schet-${number}-${date}.pdf`
           : `akt-${number}-${date}.pdf`;
       await downloadPdfFromElement(pdfRef.current, filename);
-      incrementDocCount();
-      setRemaining(getRemainingDocs());
       setMessage("PDF скачан успешно!");
     } catch {
       setMessage("Ошибка при создании PDF. Попробуйте ещё раз.");
@@ -114,9 +101,7 @@ export default function CreatePageClient() {
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-slate-900">{pageTitle}</h1>
-        <p className="mt-2 text-slate-600">
-          Бесплатно осталось документов в этом месяце: <strong>{remaining}</strong>
-        </p>
+        <p className="mt-2 text-slate-600">Бесплатно · без лимитов · без регистрации</p>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2">
@@ -192,6 +177,21 @@ export default function CreatePageClient() {
               Итого: {total.toLocaleString("ru-RU", { minimumFractionDigits: 2 })} ₽
             </p>
 
+            <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+              <input
+                type="checkbox"
+                checked={requireFields}
+                onChange={(e) => setRequireFields(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600"
+              />
+              <span className="text-sm text-slate-700">
+                <span className="font-medium">Проверять заполнение полей</span>
+                <span className="mt-0.5 block text-slate-500">
+                  Снимите галочку, чтобы скачать PDF даже с пустыми полями
+                </span>
+              </span>
+            </label>
+
             <button
               type="button"
               onClick={handleDownload}
@@ -217,7 +217,6 @@ export default function CreatePageClient() {
         </div>
       </div>
 
-      {/* Полноразмерный блок вне scale — html2canvas не работает с transform */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed overflow-hidden"
