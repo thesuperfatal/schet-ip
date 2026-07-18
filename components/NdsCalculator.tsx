@@ -160,11 +160,6 @@ export default function NdsCalculator() {
             <Link href="/usn/" className="font-medium text-blue-700 hover:underline">
               Калькулятор УСН
             </Link>
-            {" · "}
-            Нужен НДС в счёте?{" "}
-            <Link href="/nds/" className="font-medium text-blue-700 hover:underline">
-              Калькулятор НДС
-            </Link>
           </p>
         </div>
       )}
