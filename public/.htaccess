@@ -1,7 +1,8 @@
 RewriteEngine On
+DirectorySlash Off
 
 # /create и /create/ → create.html (сохраняет ?type=schet)
-RewriteRule ^create/?$ /create.html [L,QSA]
+RewriteRule ^create/?$ create.html [L,QSA,NC]
 
 # Чистые URL без .html
 RewriteCond %{REQUEST_FILENAME} !-f
