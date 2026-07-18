@@ -88,8 +88,39 @@ export default function Home() {
         <p className="mt-3">
           СчётИП — бесплатный набор онлайн-инструментов для индивидуальных предпринимателей:
           выставить счёт на оплату, подготовить акт, посчитать налог УСН и НДС. Всё работает в
-          браузере, без регистрации и без отправки документов на сервер.
+          браузере, без регистрации и без отправки документов на сервер.{" "}
+          <Link href="/about/" className="text-blue-600 hover:underline">
+            Подробнее о проекте
+          </Link>
+          .
         </p>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-4 pb-16">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <h2 className="text-xl font-bold text-slate-900">Статьи</h2>
+          <Link href="/articles/" className="text-sm text-blue-600 hover:underline">
+            Все статьи
+          </Link>
+        </div>
+        <ul className="space-y-3">
+          <li>
+            <Link
+              href="/articles/usn-6-ili-15/"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 hover:border-blue-300"
+            >
+              УСН 6% или 15%: что выгоднее ИП
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/articles/nds-na-usn-2026/"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 hover:border-blue-300"
+            >
+              НДС на УСН в 2026 году
+            </Link>
+          </li>
+        </ul>
       </section>
 
       <section className="mx-auto grid max-w-5xl gap-6 px-4 pb-20 sm:grid-cols-3">

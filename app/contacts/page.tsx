@@ -34,9 +34,15 @@ export default function ContactsPage() {
         </p>
       </div>
 
-      <div className="mt-8 text-sm text-slate-600">
+      <div className="mt-8 flex flex-wrap gap-4 text-sm text-slate-600">
+        <Link href="/about/" className="text-blue-600 hover:underline">
+          О проекте
+        </Link>
         <Link href="/privacy/" className="text-blue-600 hover:underline">
           Политика конфиденциальности
+        </Link>
+        <Link href="/articles/" className="text-blue-600 hover:underline">
+          Статьи
         </Link>
       </div>
     </div>

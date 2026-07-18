@@ -68,14 +68,11 @@ export default function RootLayout({
           <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 sm:flex-row">
             <p>СчётИП — бесплатные инструменты для ИП</p>
             <nav className="flex flex-wrap justify-center gap-4">
-              <Link href="/usn/" className="hover:text-blue-600">
-                УСН
+              <Link href="/articles/" className="hover:text-blue-600">
+                Статьи
               </Link>
-              <Link href="/nds/" className="hover:text-blue-600">
-                НДС
-              </Link>
-              <Link href="/summa-propisyu/" className="hover:text-blue-600">
-                Прописью
+              <Link href="/about/" className="hover:text-blue-600">
+                О проекте
               </Link>
               <Link href="/privacy/" className="hover:text-blue-600">
                 Конфиденциальность
