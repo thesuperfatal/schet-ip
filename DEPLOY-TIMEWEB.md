@@ -19,7 +19,7 @@
 | **Сервер (хост)** | `vipXXX.timeweb.ru` или `cn825431.tw1.ru` | Подключение / FTP |
 | **Логин** | `cn825431` или похожий | Подключение / FTP |
 | **Пароль** | твой FTP-пароль | Подключение / FTP |
-| **Папка сайта** | `/public_html/` | куда заливал `index.html` |
+| **Папка сайта** | `/biznes-ip.ru/public_html/` | Файловый менеджер → biznes-ip.ru → public_html |
 
 Если FTP-пароля нет — создай пользователя FTP в панели Timeweb.
 
@@ -40,7 +40,7 @@
 
 | Имя | Значение |
 |-----|----------|
-| `FTP_SERVER_DIR` | например `/public_html/` |
+| `FTP_SERVER_DIR` | `/biznes-ip.ru/public_html/` (если сайт не в корневом public_html) |
 
 ---
 
