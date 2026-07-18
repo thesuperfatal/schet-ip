@@ -56,8 +56,19 @@ export const emptyBuyer = (): BuyerInfo => ({
   address: "",
 });
 
+function createId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    try {
+      return crypto.randomUUID();
+    } catch {
+      // HTTP (не secure context) — randomUUID недоступен
+    }
+  }
+  return `id-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
 export const emptyItem = (): LineItem => ({
-  id: crypto.randomUUID(),
+  id: createId(),
   name: "",
   unit: "шт",
   qty: 1,
