@@ -38,8 +38,14 @@ export default function ContactsPage() {
         <Link href="/about/" className="text-blue-600 hover:underline">
           О проекте
         </Link>
+        <Link href="/faq/" className="text-blue-600 hover:underline">
+          FAQ
+        </Link>
         <Link href="/privacy/" className="text-blue-600 hover:underline">
           Политика конфиденциальности
+        </Link>
+        <Link href="/terms/" className="text-blue-600 hover:underline">
+          Соглашение
         </Link>
         <Link href="/articles/" className="text-blue-600 hover:underline">
           Статьи

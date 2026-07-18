@@ -70,6 +70,11 @@ export default function AboutPage() {
                 Статьи для ИП
               </Link>
             </li>
+            <li>
+              <Link href="/faq/" className="text-blue-600 hover:underline">
+                Частые вопросы (FAQ)
+              </Link>
+            </li>
           </ul>
         </section>
 

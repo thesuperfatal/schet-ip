@@ -7,6 +7,20 @@ export type ArticleMeta = {
 
 export const ARTICLES: ArticleMeta[] = [
   {
+    slug: "kak-vystavit-schet",
+    title: "Как выставить счёт ИП клиенту: пошагово",
+    description:
+      "Реквизиты, услуга, НДС и PDF: простой порядок выставления счёта без Word и Excel.",
+    date: "2026-07-19",
+  },
+  {
+    slug: "schet-i-akt",
+    title: "Счёт и акт для ИП: чем отличаются и когда нужны",
+    description:
+      "Чем счёт отличается от акта, в каком порядке их выставлять и как оформить оба документа онлайн.",
+    date: "2026-07-19",
+  },
+  {
     slug: "usn-6-ili-15",
     title: "УСН 6% или 15%: что выгоднее ИП",
     description:

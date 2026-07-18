@@ -111,6 +111,22 @@ export default function Home() {
         <ul className="space-y-3">
           <li>
             <Link
+              href="/articles/kak-vystavit-schet/"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 hover:border-blue-300"
+            >
+              Как выставить счёт ИП клиенту
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/articles/schet-i-akt/"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 hover:border-blue-300"
+            >
+              Счёт и акт: чем отличаются
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/articles/usn-6-ili-15/"
               className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 hover:border-blue-300"
             >

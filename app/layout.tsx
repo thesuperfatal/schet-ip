@@ -71,11 +71,17 @@ export default function RootLayout({
               <Link href="/articles/" className="hover:text-blue-600">
                 Статьи
               </Link>
+              <Link href="/faq/" className="hover:text-blue-600">
+                FAQ
+              </Link>
               <Link href="/about/" className="hover:text-blue-600">
                 О проекте
               </Link>
               <Link href="/privacy/" className="hover:text-blue-600">
                 Конфиденциальность
+              </Link>
+              <Link href="/terms/" className="hover:text-blue-600">
+                Соглашение
               </Link>
               <Link href="/contacts/" className="hover:text-blue-600">
                 Контакты

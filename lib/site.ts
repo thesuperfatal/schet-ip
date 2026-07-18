@@ -9,9 +9,13 @@ export const SITE_PAGES = [
   { path: "/nds/", title: "Калькулятор НДС", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/summa-propisyu/", title: "Сумма прописью", priority: 0.85, changeFrequency: "monthly" as const },
   { path: "/articles/", title: "Статьи", priority: 0.8, changeFrequency: "weekly" as const },
+  { path: "/articles/kak-vystavit-schet/", title: "Как выставить счёт", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/articles/schet-i-akt/", title: "Счёт и акт для ИП", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/articles/usn-6-ili-15/", title: "УСН 6% или 15%", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/articles/nds-na-usn-2026/", title: "НДС на УСН 2026", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/faq/", title: "Частые вопросы", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/about/", title: "О проекте", priority: 0.5, changeFrequency: "yearly" as const },
   { path: "/privacy/", title: "Политика конфиденциальности", priority: 0.3, changeFrequency: "yearly" as const },
+  { path: "/terms/", title: "Пользовательское соглашение", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/contacts/", title: "Контакты", priority: 0.4, changeFrequency: "yearly" as const },
 ];

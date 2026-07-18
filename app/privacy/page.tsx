@@ -57,15 +57,28 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-xl font-semibold text-slate-900">5. Cookies</h2>
           <p className="mt-2">
-            Сайт может использовать cookies для аналитики и корректной работы. Вы можете ограничить
-            cookies в настройках браузера.
+            Сайт может использовать cookies для аналитики (Яндекс.Метрика) и, при подключении
+            рекламы, для показа объявлений РСЯ. Вы можете ограничить cookies в настройках браузера.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">6. Контакты</h2>
+          <h2 className="text-xl font-semibold text-slate-900">6. Реклама</h2>
+          <p className="mt-2">
+            Для поддержки бесплатного сервиса на сайте может размещаться реклама Рекламной сети
+            Яндекса и других партнёров. Рекламные сети могут устанавливать собственные cookies и
+            обрабатывать технические данные согласно своим политикам.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900">7. Контакты</h2>
           <p className="mt-2">
             По вопросам конфиденциальности:{" "}
+            <a href="mailto:Tismojesh@yandex.ru" className="text-blue-600 hover:underline">
+              Tismojesh@yandex.ru
+            </a>{" "}
+            или{" "}
             <Link href="/contacts/" className="text-blue-600 hover:underline">
               страница контактов
             </Link>
