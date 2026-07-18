@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Hint from "@/components/Hint";
 import { formatMoney } from "@/lib/amountToWords";
 import {
   EXTRA_1PCT_MAX_2026,
@@ -55,8 +56,9 @@ export default function VznosyCalculator() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block sm:col-span-2">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
               Доход за год, ₽
+              <Hint text="Доход для расчёта 1% свыше 300 000 ₽ (ориентир)" />
             </span>
             <input
               type="text"
@@ -69,8 +71,9 @@ export default function VznosyCalculator() {
           </label>
 
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
               На сколько месяцев делить
+              <Hint text="Чтобы понять, сколько откладывать каждый месяц" />
             </span>
             <input
               type="number"

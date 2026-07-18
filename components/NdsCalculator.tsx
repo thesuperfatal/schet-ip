@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Hint from "@/components/Hint";
 import {
   NDS_RATES,
   NDS_STANDARD_RATE,
@@ -67,8 +68,15 @@ export default function NdsCalculator() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
               {mode === "charge" ? "Сумма без НДС, ₽" : "Сумма с НДС, ₽"}
+              <Hint
+                text={
+                  mode === "charge"
+                    ? "К этой сумме начислим НДС сверху"
+                    : "Из этой суммы выделим НДС «внутри»"
+                }
+              />
             </span>
             <input
               type="number"
@@ -80,7 +88,10 @@ export default function NdsCalculator() {
           </label>
 
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">Ставка НДС</span>
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
+              Ставка НДС
+              <Hint text="5% и 7% — спецставки для УСН при превышении порогов; 22% — общая" />
+            </span>
             <select
               value={String(rate)}
               onChange={(e) => setRate(Number(e.target.value))}

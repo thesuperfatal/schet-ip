@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Hint from "@/components/Hint";
 import { formatMoney } from "@/lib/amountToWords";
 import {
   DEFAULT_KEY_RATE,
@@ -50,7 +51,10 @@ export default function PaymentDeadlineCalculator() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">Дата счёта</span>
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
+              Дата счёта
+              <Hint text="Дата, от которой считаем отсрочку" />
+            </span>
             <input
               type="date"
               value={invoiceDate}
@@ -59,8 +63,9 @@ export default function PaymentDeadlineCalculator() {
             />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">
-              Отсрочка, банковских / календарных дней
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
+              Отсрочка, дней
+              <Hint text="Сколько дней на оплату от даты счёта (календарные)" />
             </span>
             <input
               type="number"
@@ -71,8 +76,9 @@ export default function PaymentDeadlineCalculator() {
             />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">
-              Дата оплаты (необязательно)
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
+              Дата оплаты
+              <Hint text="Необязательно: если указать позже срока — посчитаем пени" />
             </span>
             <input
               type="date"
@@ -82,7 +88,10 @@ export default function PaymentDeadlineCalculator() {
             />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-700">Сумма долга, ₽</span>
+            <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
+              Сумма долга, ₽
+              <Hint text="Сумма, с которой считаются пени при просрочке" />
+            </span>
             <input
               type="text"
               inputMode="decimal"
@@ -94,7 +103,10 @@ export default function PaymentDeadlineCalculator() {
         </div>
 
         <div className="mt-4">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">Как считать пени</span>
+          <span className="mb-1.5 flex items-center text-sm font-medium text-slate-700">
+            Как считать пени
+            <Hint text="1/300 — часто для налоговых пеней; 1/360 — ориентир по ст. 395 ГК; или своя ставка из договора" />
+          </span>
           <div className="flex flex-wrap gap-2">
             {(
               [

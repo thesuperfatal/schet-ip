@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import FormField from "@/components/FormField";
 import {
   FIXED_CONTRIBUTIONS_2026,
   USN_YEAR,
@@ -91,40 +92,56 @@ export default function UsnCalculator() {
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field
+          <FormField
             label="Доход за период, ₽"
             value={income}
             onChange={setIncome}
+            type="number"
+            min={0}
             hint="Выручка / доходы, учитываемые на УСН"
+            labelClassName="text-sm font-medium text-slate-700"
+            inputClassName="rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500"
           />
           {(mode === "profit15" || mode === "compare") && (
-            <Field
+            <FormField
               label="Расходы (без взносов), ₽"
               value={expenses}
               onChange={setExpenses}
+              type="number"
+              min={0}
               hint="Для УСН 15%. Взносы учтём отдельно"
+              labelClassName="text-sm font-medium text-slate-700"
+              inputClassName="rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500"
             />
           )}
-          <Field
+          <FormField
             label="Период, месяцев"
             value={months}
             onChange={setMonths}
-            hint="Для расчёта «откладывать в месяц»"
+            type="number"
+            min={0}
+            hint="На сколько месяцев делить «откладывать в месяц»"
+            labelClassName="text-sm font-medium text-slate-700"
+            inputClassName="rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500"
           />
           <div className="space-y-2">
-            <Field
+            <FormField
               label="Страховые взносы за себя, ₽"
               value={autoContrib ? String(Math.round(contribNum)) : contributions}
               onChange={(v) => {
                 setAutoContrib(false);
                 setContributions(v);
               }}
+              type="number"
+              min={0}
               hint={
                 autoContrib
-                  ? `Авто: фикс ${formatMoney(FIXED_CONTRIBUTIONS_2026)} + 1% свыше 300 тыс.`
-                  : "Можно указать фактически уплаченные"
+                  ? `Авто: фикс ${formatMoney(FIXED_CONTRIBUTIONS_2026)} ₽ + 1% свыше 300 тыс.`
+                  : "Укажите фактически уплаченные или плановые взносы"
               }
               disabled={autoContrib}
+              labelClassName="text-sm font-medium text-slate-700"
+              inputClassName="rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500"
             />
             <div className="flex flex-wrap gap-3 text-sm">
               <label className="flex items-center gap-2 text-slate-700">
@@ -252,35 +269,6 @@ export default function UsnCalculator() {
         </ul>
       </details>
     </div>
-  );
-}
-
-function Field({
-  label,
-  value,
-  onChange,
-  hint,
-  disabled,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  hint?: string;
-  disabled?: boolean;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-slate-700">{label}</span>
-      <input
-        type="number"
-        min={0}
-        value={value}
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 disabled:bg-slate-50"
-      />
-      {hint && <span className="mt-1 block text-xs text-slate-500">{hint}</span>}
-    </label>
   );
 }
 
