@@ -17,6 +17,9 @@ export default function Header() {
           <Link href="/usn/" className="text-slate-600 hover:text-blue-600">
             УСН
           </Link>
+          <Link href="/nds/" className="text-slate-600 hover:text-blue-600">
+            НДС
+          </Link>
         </nav>
       </div>
     </header>

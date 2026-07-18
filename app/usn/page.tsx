@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import UsnCalculator from "@/components/UsnCalculator";
 
 export const metadata: Metadata = {
@@ -7,6 +8,14 @@ export const metadata: Metadata = {
     "Бесплатный калькулятор УСН для ИП: налог 6% и 15%, взносы, вычет, минимальный налог 1%, сравнение режимов и сумма «откладывать в месяц».",
   keywords:
     "калькулятор УСН, УСН 6%, УСН 15%, налог ИП, сколько откладывать на налог, взносы ИП 2026",
+  alternates: { canonical: "https://biznes-ip.ru/usn/" },
+  openGraph: {
+    title: "Калькулятор УСН для ИП 2026 — СчётИП",
+    description: "Сравните УСН 6% и 15%, взносы и сумму «откладывать в месяц».",
+    url: "https://biznes-ip.ru/usn/",
+    locale: "ru_RU",
+    type: "website",
+  },
 };
 
 export default function UsnPage() {
@@ -25,6 +34,17 @@ export default function UsnPage() {
         </p>
       </div>
       <UsnCalculator />
+
+      <section className="mt-10 space-y-4 text-sm leading-relaxed text-slate-700">
+        <h2 className="text-xl font-semibold text-slate-900">УСН и НДС</h2>
+        <p>
+          Если доход растёт, на УСН может появиться НДС. Посчитайте сумму налога в счёте отдельно:{" "}
+          <Link href="/nds/" className="text-blue-600 hover:underline">
+            калькулятор НДС
+          </Link>
+          .
+        </p>
+      </section>
     </div>
   );
 }

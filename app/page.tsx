@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Инструменты для ИП: счёт, акт, калькуляторы УСН и НДС",
+  description:
+    "Бесплатный портал для ИП: счёт и акт в PDF, калькулятор УСН 6%/15%, калькулятор НДС 5%/7%/22%. Без регистрации.",
+  alternates: { canonical: "https://biznes-ip.ru/" },
+};
 
 export default function Home() {
   return (
@@ -11,8 +19,8 @@ export default function Home() {
           Инструменты для ИП онлайн
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-          Счета и акты в PDF, калькулятор УСН — сколько налогов и взносов платить и сколько
-          откладывать каждый месяц.
+          Счета и акты в PDF, калькуляторы УСН и НДС — посчитайте налоги и оформите документ за
+          несколько минут.
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -23,10 +31,10 @@ export default function Home() {
             Создать счёт
           </Link>
           <Link
-            href="/usn/"
+            href="/nds/"
             className="w-full rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-800 hover:bg-slate-50 sm:w-auto"
           >
-            Калькулятор УСН
+            Калькулятор НДС
           </Link>
         </div>
 
@@ -35,7 +43,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 pb-8">
         <h2 className="mb-6 text-center text-2xl font-bold text-slate-900">Что умеет сайт</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
               href: "/create/?type=schet",
@@ -50,7 +58,12 @@ export default function Home() {
             {
               href: "/usn/",
               title: "Калькулятор УСН",
-              text: "6% и 15%, взносы, сравнение режимов, «откладывай в месяц».",
+              text: "6% и 15%, взносы, сравнение, «откладывай в месяц».",
+            },
+            {
+              href: "/nds/",
+              title: "Калькулятор НДС",
+              text: "Начислить и выделить НДС, ставки 5%/7%/22%, подсказка для УСН.",
             },
           ].map((item) => (
             <Link
@@ -65,7 +78,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-5xl gap-6 px-4 pb-20 pt-8 sm:grid-cols-3">
+      <section className="mx-auto max-w-3xl px-4 pb-12 text-sm leading-relaxed text-slate-700">
+        <h2 className="text-xl font-semibold text-slate-900">Для кого этот сервис</h2>
+        <p className="mt-3">
+          СчётИП — бесплатный набор онлайн-инструментов для индивидуальных предпринимателей:
+          выставить счёт на оплату, подготовить акт, посчитать налог УСН и НДС. Всё работает в
+          браузере, без регистрации и без отправки документов на сервер.
+        </p>
+      </section>
+
+      <section className="mx-auto grid max-w-5xl gap-6 px-4 pb-20 sm:grid-cols-3">
         {[
           {
             title: "Быстро",

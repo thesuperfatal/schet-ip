@@ -221,6 +221,10 @@ export default function UsnCalculator() {
           <Link href="/create/?type=akt" className="font-medium text-blue-700 hover:underline">
             акт
           </Link>
+          . Нужен НДС в сумме?{" "}
+          <Link href="/nds/" className="font-medium text-blue-700 hover:underline">
+            калькулятор НДС
+          </Link>
           .
         </p>
       </div>
