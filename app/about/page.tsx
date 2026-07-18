@@ -73,6 +73,11 @@ export default function AboutPage() {
               </Link>
             </li>
             <li>
+              <Link href="/srok-oplaty/" className="text-blue-600 hover:underline">
+                Срок оплаты и пени
+              </Link>
+            </li>
+            <li>
               <Link href="/nds/" className="text-blue-600 hover:underline">
                 Калькулятор НДС
               </Link>

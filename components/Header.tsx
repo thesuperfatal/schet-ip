@@ -35,6 +35,9 @@ export default function Header() {
           <Link href="/summa-propisyu/" className="text-slate-600 hover:text-blue-600">
             Прописью
           </Link>
+          <Link href="/srok-oplaty/" className="text-slate-600 hover:text-blue-600">
+            Срок/пени
+          </Link>
         </nav>
       </div>
     </header>
