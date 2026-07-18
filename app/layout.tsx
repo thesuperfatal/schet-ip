@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import Header from "@/components/Header";
 import YandexMetrika from "@/components/YandexMetrika";
 import "./globals.css";
@@ -32,8 +33,21 @@ export default function RootLayout({
         <YandexMetrika />
         <Header />
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-500">
-          СчётИП — бесплатный генератор документов для ИП
+        <footer className="border-t border-slate-200 bg-white py-6 text-sm text-slate-500">
+          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 sm:flex-row">
+            <p>СчётИП — бесплатные инструменты для ИП</p>
+            <nav className="flex flex-wrap justify-center gap-4">
+              <Link href="/usn/" className="hover:text-blue-600">
+                УСН
+              </Link>
+              <Link href="/privacy/" className="hover:text-blue-600">
+                Конфиденциальность
+              </Link>
+              <Link href="/contacts/" className="hover:text-blue-600">
+                Контакты
+              </Link>
+            </nav>
+          </div>
         </footer>
       </body>
     </html>
