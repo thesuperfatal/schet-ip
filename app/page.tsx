@@ -85,6 +85,11 @@ export default function Home() {
               title: "Сумма прописью",
               text: "Перевод суммы в текст для договора, счёта и акта.",
             },
+            {
+              href: "/otkryl-ip/",
+              title: "Чек-лист «Открыл ИП»",
+              text: "Пошагово: налоги, взносы, счёт, касса, документы.",
+            },
           ].map((item) => (
             <Link
               key={item.href + item.title}

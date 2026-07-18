@@ -86,6 +86,11 @@ export default function AboutPage() {
                 Частые вопросы (FAQ)
               </Link>
             </li>
+            <li>
+              <Link href="/otkryl-ip/" className="text-blue-600 hover:underline">
+                Чек-лист «Открыл ИП»
+              </Link>
+            </li>
           </ul>
         </section>
 

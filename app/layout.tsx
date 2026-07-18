@@ -74,6 +74,9 @@ export default function RootLayout({
               <Link href="/faq/" className="hover:text-blue-600">
                 FAQ
               </Link>
+              <Link href="/otkryl-ip/" className="hover:text-blue-600">
+                Открыл ИП
+              </Link>
               <Link href="/about/" className="hover:text-blue-600">
                 О проекте
               </Link>
