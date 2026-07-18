@@ -40,11 +40,44 @@ export default function CreatePageClient() {
   const [requireFields, setRequireFields] = useState(true);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [fromNds, setFromNds] = useState(false);
 
   useEffect(() => {
     setType(getTypeFromUrl());
     const saved = loadSeller();
     if (saved) setSeller(saved);
+
+    const params = new URLSearchParams(window.location.search);
+    const vat = params.get("vat");
+    const priceRaw = params.get("price");
+    const itemName = params.get("item");
+    const from = params.get("from");
+
+    if (vat) {
+      setVatNote(vat);
+    }
+
+    if (priceRaw !== null && priceRaw !== "") {
+      const price = Number(String(priceRaw).replace(",", "."));
+      if (Number.isFinite(price) && price >= 0) {
+        setItems((prev) => {
+          const first = prev[0] ?? emptyItem();
+          return [
+            {
+              ...first,
+              price,
+              name: itemName?.trim() || first.name,
+              qty: first.qty || 1,
+            },
+            ...prev.slice(1),
+          ];
+        });
+      }
+    }
+
+    if (from === "nds" && (vat || priceRaw)) {
+      setFromNds(true);
+    }
   }, []);
 
   const documentData: DocumentData = {
@@ -105,6 +138,16 @@ export default function CreatePageClient() {
         <h1 className="text-3xl font-bold text-slate-900">{pageTitle}</h1>
         <p className="mt-2 text-slate-600">Бесплатно · без лимитов · без регистрации</p>
       </div>
+
+      {fromNds && (
+        <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+          Подставлено из{" "}
+          <Link href="/nds/" className="font-medium text-blue-700 hover:underline">
+            калькулятора НДС
+          </Link>
+          : поле «НДС» и сумма первой позиции. Проверьте наименование и реквизиты.
+        </div>
+      )}
 
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-6">
@@ -173,6 +216,12 @@ export default function CreatePageClient() {
 
             <div className="mt-4">
               <Field label="НДС" value={vatNote} onChange={setVatNote} className="sm:col-span-2" />
+              <p className="mt-1 text-xs text-slate-500">
+                <Link href="/nds/" className="text-blue-600 hover:underline">
+                  Рассчитать НДС в калькуляторе
+                </Link>{" "}
+                — фраза и сумма подставятся сами
+              </p>
             </div>
 
             <p className="mt-4 text-right text-lg font-semibold">

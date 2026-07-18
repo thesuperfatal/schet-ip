@@ -6,6 +6,7 @@ import {
   NDS_RATES,
   NDS_STANDARD_RATE,
   NDS_YEAR,
+  buildCreateFromNdsUrl,
   calcNds,
   formatMoney,
   formatMoneyShort,
@@ -31,7 +32,8 @@ export default function NdsCalculator() {
     return hintUsnNds(parseNum(usnIncome));
   }, [showUsnHint, usnIncome]);
 
-  const createHref = `/create/?type=schet`;
+  const createHref = buildCreateFromNdsUrl(result, "schet");
+  const createAktHref = buildCreateFromNdsUrl(result, "akt");
 
   return (
     <div className="space-y-6">
@@ -192,10 +194,16 @@ export default function NdsCalculator() {
           href={createHref}
           className="mt-4 flex w-full items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-slate-800"
         >
-          Создать счёт на оплату
+          Создать счёт с этим НДС
+        </Link>
+        <Link
+          href={createAktHref}
+          className="mt-2 flex w-full items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-center text-sm font-semibold text-slate-800 hover:bg-slate-50"
+        >
+          Создать акт с этим НДС
         </Link>
         <p className="mt-2 text-center text-xs text-slate-500">
-          В поле НДС на форме счёта вставьте фразу выше (или «Без НДС»).
+          Подставим фразу НДС и сумму без налога в форму документа.
         </p>
       </div>
 

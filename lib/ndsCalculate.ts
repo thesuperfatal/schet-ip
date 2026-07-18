@@ -129,3 +129,17 @@ export function hintUsnNds(yearlyIncome: number): UsnNdsHint {
     suggestedRate: NDS_STANDARD_RATE,
   };
 }
+
+/** Ссылка на форму счёта с подстановкой НДС и суммы. */
+export function buildCreateFromNdsUrl(result: NdsCalcResult, docType: "schet" | "akt" = "schet"): string {
+  const params = new URLSearchParams();
+  params.set("type", docType);
+  params.set("from", "nds");
+  params.set("vat", result.documentPhrase);
+  // В позицию кладём сумму без НДС — фраза НДС отдельным полем
+  params.set("price", String(result.amountWithoutNds));
+  if (result.ndsAmount > 0) {
+    params.set("item", "Услуга / товар");
+  }
+  return `/create/?${params.toString()}`;
+}
