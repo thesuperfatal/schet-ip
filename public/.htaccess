@@ -1,5 +1,5 @@
 RewriteEngine On
-DirectorySlash Off
+RewriteBase /
 
 # /create и /create/ → create.html (сохраняет ?type=schet)
 RewriteRule ^create/?$ create.html [L,QSA,NC]
