@@ -1,11 +1,2 @@
-RewriteEngine On
-RewriteBase /
-
-# /create и /create/ → create.html (сохраняет ?type=schet)
-RewriteRule ^create/?$ create.html [L,QSA,NC]
-
-# Чистые URL без .html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.+)$ $1.html [L]
+# Безопасная конфигурация для Timeweb (без mod_rewrite)
+DirectoryIndex index.html index.htm

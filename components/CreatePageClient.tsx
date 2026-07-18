@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import DocumentPreview from "@/components/DocumentPreview";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import {
@@ -26,9 +25,14 @@ function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+function getTypeFromUrl(): DocumentType {
+  if (typeof window === "undefined") return "schet";
+  const value = new URLSearchParams(window.location.search).get("type");
+  return value === "akt" ? "akt" : "schet";
+}
+
 export default function CreatePageClient() {
-  const searchParams = useSearchParams();
-  const type = (searchParams.get("type") === "akt" ? "akt" : "schet") as DocumentType;
+  const [type, setType] = useState<DocumentType>("schet");
   const pdfRef = useRef<HTMLDivElement>(null);
 
   const [seller, setSeller] = useState<SellerInfo>(emptySeller());
@@ -42,6 +46,7 @@ export default function CreatePageClient() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
+    setType(getTypeFromUrl());
     const saved = loadSeller();
     if (saved) setSeller(saved);
     setRemaining(getRemainingDocs());
