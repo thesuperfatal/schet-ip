@@ -56,6 +56,11 @@ export default function AboutPage() {
               </Link>
             </li>
             <li>
+              <Link href="/vznosy/" className="text-blue-600 hover:underline">
+                Калькулятор страховых взносов ИП
+              </Link>
+            </li>
+            <li>
               <Link href="/nds/" className="text-blue-600 hover:underline">
                 Калькулятор НДС
               </Link>

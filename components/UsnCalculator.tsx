@@ -225,6 +225,10 @@ export default function UsnCalculator() {
           <Link href="/nds/" className="font-medium text-blue-700 hover:underline">
             калькулятор НДС
           </Link>
+          . Только взносы —{" "}
+          <Link href="/vznosy/" className="font-medium text-blue-700 hover:underline">
+            отдельно
+          </Link>
           .
         </p>
       </div>

@@ -42,6 +42,10 @@ export default function UsnPage() {
           <Link href="/nds/" className="text-blue-600 hover:underline">
             калькулятор НДС
           </Link>
+          . Отдельно можно посчитать только взносы:{" "}
+          <Link href="/vznosy/" className="text-blue-600 hover:underline">
+            калькулятор страховых взносов ИП
+          </Link>
           .
         </p>
       </section>
