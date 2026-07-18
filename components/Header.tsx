@@ -20,6 +20,9 @@ export default function Header() {
           <Link href="/nakladnaya/" className="text-slate-600 hover:text-blue-600">
             Накладная
           </Link>
+          <Link href="/kp/" className="text-slate-600 hover:text-blue-600">
+            КП
+          </Link>
           <Link href="/usn/" className="text-slate-600 hover:text-blue-600">
             УСН
           </Link>
