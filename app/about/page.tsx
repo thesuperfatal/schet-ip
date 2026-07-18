@@ -45,6 +45,12 @@ export default function AboutPage() {
               в PDF
             </li>
             <li>
+              <Link href="/dogovor/" className="text-blue-600 hover:underline">
+                Договор оказания услуг
+              </Link>{" "}
+              в PDF
+            </li>
+            <li>
               <Link href="/usn/" className="text-blue-600 hover:underline">
                 Калькулятор УСН
               </Link>

@@ -14,6 +14,9 @@ export default function Header() {
           <Link href="/create/?type=akt" className="text-slate-600 hover:text-blue-600">
             Акт
           </Link>
+          <Link href="/dogovor/" className="text-slate-600 hover:text-blue-600">
+            Договор
+          </Link>
           <Link href="/usn/" className="text-slate-600 hover:text-blue-600">
             УСН
           </Link>
