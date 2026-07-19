@@ -210,12 +210,20 @@ export default function PaymentDeadlineCalculator() {
           )}
         </dl>
 
-        <Link
-          href="/create/?type=schet"
-          className="mt-5 flex w-full items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
-        >
-          Создать счёт с этой суммой
-        </Link>
+        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+          <Link
+            href={`/pretenziya/?amount=${encodeURIComponent(String(parseAmount(amount)))}&date=${encodeURIComponent(invoiceDate)}&deferral=${encodeURIComponent(deferralDays)}`}
+            className="flex flex-1 items-center justify-center rounded-xl border border-blue-200 bg-white px-6 py-3 text-center text-sm font-semibold text-blue-700 hover:border-blue-400"
+          >
+            Составить претензию
+          </Link>
+          <Link
+            href="/create/?type=schet"
+            className="flex flex-1 items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
+          >
+            Создать счёт с этой суммой
+          </Link>
+        </div>
       </div>
 
       <details className="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-600">

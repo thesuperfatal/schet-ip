@@ -85,6 +85,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: true,
   },
   {
+    href: "/pretenziya/",
+    title: "Претензия о просрочке",
+    short: "Письмо должнику с расчётом пеней.",
+    tip: "Претензия о просрочке оплаты",
+    category: "documents",
+    navLabel: "Претензия",
+    inNav: true,
+  },
+  {
     href: "/usn/",
     title: "Калькулятор УСН",
     short: "6% или 15%, взносы, сколько откладывать.",

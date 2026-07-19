@@ -44,6 +44,10 @@ export default function SrokOplatyPage() {
           <Link href="/create/?type=schet" className="text-blue-600 hover:underline">
             генератор счетов
           </Link>
+          . Если оплата уже просрочена —{" "}
+          <Link href="/pretenziya/" className="text-blue-600 hover:underline">
+            претензия о просрочке
+          </Link>
           .
         </p>
       </section>
