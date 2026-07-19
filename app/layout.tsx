@@ -79,6 +79,12 @@ export default function RootLayout({
                 >
                   Память10 — тренировки памяти
                 </a>
+                <a
+                  href="https://biznes-ip.ru/sad/"
+                  className="rounded-full bg-white px-4 py-2 font-medium text-lime-800 ring-1 ring-slate-200 hover:ring-lime-600"
+                >
+                  Грядка10 — сад и огород
+                </a>
               </div>
             </div>
             <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">

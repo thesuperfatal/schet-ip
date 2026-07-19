@@ -69,3 +69,39 @@ jobs:
           local-dir: ./memory/out/
           server-dir: /biznes-ip.ru/public_html/memory/
           dangerous-clean-slate: false
+
+  deploy-sad:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Грядка10
+        uses: actions/checkout@v4
+        with:
+          repository: thesuperfatal/griadka10
+          path: sad
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: sad/package-lock.json
+
+      - name: Install dependencies
+        working-directory: sad
+        run: npm ci
+
+      - name: Build Грядка10 under /sad
+        working-directory: sad
+        env:
+          NEXT_PUBLIC_BASE_PATH: /sad
+        run: npm run build
+
+      - name: Deploy Грядка10 to /sad/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./sad/out/
+          server-dir: /biznes-ip.ru/public_html/sad/
+          dangerous-clean-slate: false
