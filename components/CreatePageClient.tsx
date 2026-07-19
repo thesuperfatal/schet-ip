@@ -8,7 +8,12 @@ import FormField from "@/components/FormField";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { amountToWords } from "@/lib/amountToWords";
 import { exampleBuyer, exampleItems, exampleSeller } from "@/lib/examples";
-import { buildDealUrl, dealFromItems, readDealParams } from "@/lib/dealFlow";
+import {
+  buildDealUrl,
+  dealFromItems,
+  decodeShareItems,
+  readDealParams,
+} from "@/lib/dealFlow";
 import DealNextSteps from "@/components/DealNextSteps";
 import DocHistory from "@/components/DocHistory";
 import {
@@ -18,6 +23,9 @@ import {
   saveDocToHistory,
   type DocHistoryEntry,
 } from "@/lib/docHistory";
+import { loadBuyers, removeBuyer, saveBuyer } from "@/lib/buyers";
+import { copyText, paymentPurpose } from "@/lib/paymentPurpose";
+import { SITE_URL } from "@/lib/site";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import {
   emptyBuyer,
@@ -56,10 +64,12 @@ export default function CreatePageClient() {
   const [fromNds, setFromNds] = useState(false);
   const [fromSource, setFromSource] = useState("");
   const [history, setHistory] = useState<DocHistoryEntry[]>([]);
+  const [buyers, setBuyers] = useState<BuyerInfo[]>([]);
 
   useEffect(() => {
     setType(getTypeFromUrl());
     setHistory(loadDocHistory());
+    setBuyers(loadBuyers());
     const saved = loadSeller();
     if (saved) setSeller(saved);
 
@@ -68,17 +78,31 @@ export default function CreatePageClient() {
     const from = deal.from || params.get("from") || "";
 
     if (deal.vat) setVatNote(deal.vat);
+    if (deal.number) setNumber(deal.number);
+    if (deal.date) setDate(deal.date);
 
-    if (deal.buyer || deal.buyerInn || deal.buyerAddress) {
+    if (deal.buyer || deal.buyerInn || deal.buyerKpp || deal.buyerAddress) {
       setBuyer((prev) => ({
         ...prev,
         name: deal.buyer?.trim() || prev.name,
         inn: deal.buyerInn?.trim() || prev.inn,
+        kpp: deal.buyerKpp?.trim() || prev.kpp,
         address: deal.buyerAddress?.trim() || prev.address,
       }));
     }
 
-    if (deal.price !== undefined || deal.item) {
+    const sharedItems = decodeShareItems(deal.itemsJson);
+    if (sharedItems && sharedItems.length > 0) {
+      setItems(
+        sharedItems.map((row) => ({
+          ...emptyItem(),
+          name: row.name,
+          unit: row.unit,
+          qty: row.qty,
+          price: row.price,
+        }))
+      );
+    } else if (deal.price !== undefined || deal.item) {
       setItems((prev) => {
         const first = prev[0] ?? emptyItem();
         return [
@@ -97,7 +121,7 @@ export default function CreatePageClient() {
     if (from === "nds" && (deal.vat || deal.price !== undefined)) {
       setFromNds(true);
     }
-    if (from === "kp" || from === "dogovor" || from === "schet") {
+    if (from === "kp" || from === "dogovor" || from === "schet" || from === "share") {
       setFromSource(from);
     }
   }, []);
@@ -148,13 +172,23 @@ export default function CreatePageClient() {
   const dealPayload = dealFromItems({
     clientName: buyer.name,
     clientInn: buyer.inn,
+    clientKpp: buyer.kpp,
     clientAddress: buyer.address,
     vatNote,
     items,
+    number,
+    date,
   });
   const nextAktHref = buildDealUrl("/create/", "schet", dealPayload, { type: "akt" });
   const nextSchetHref = buildDealUrl("/create/", type, dealPayload, { type: "schet" });
   const nextDogovorHref = buildDealUrl("/dogovor/", type === "akt" ? "akt" : "schet", dealPayload);
+  const purposeText = paymentPurpose({
+    type,
+    number,
+    date,
+    total,
+    vatNote,
+  });
 
   function updateItem(id: string, patch: Partial<LineItem>) {
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...patch } : item)));
@@ -166,6 +200,22 @@ export default function CreatePageClient() {
 
   function removeItem(id: string) {
     setItems((prev) => (prev.length > 1 ? prev.filter((item) => item.id !== id) : prev));
+  }
+
+  async function handleCopyLink() {
+    const path = buildDealUrl("/create/", "share", dealPayload, { type });
+    const absolute = `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+    const ok = await copyText(absolute);
+    setMessage(ok ? "Ссылка скопирована — можно открыть на другом устройстве" : "Не удалось скопировать ссылку");
+  }
+
+  async function handleCopyPurpose() {
+    const ok = await copyText(purposeText);
+    setMessage(ok ? "Назначение платежа скопировано" : "Не удалось скопировать текст");
+  }
+
+  function handlePrint() {
+    window.print();
   }
 
   async function handleDownload() {
@@ -181,13 +231,16 @@ export default function CreatePageClient() {
     setLoading(true);
     try {
       saveSeller(seller);
+      if (buyer.name.trim()) {
+        setBuyers(saveBuyer(buyer));
+      }
       const filename =
         type === "schet"
           ? `schet-${number}-${date}.pdf`
           : `akt-${number}-${date}.pdf`;
       await downloadPdfFromElement(pdfRef.current, filename);
       setHistory(saveDocToHistory(documentData));
-      setMessage("PDF скачан успешно! Документ сохранён в «Недавние».");
+      setMessage("PDF скачан успешно! Документ и покупатель сохранены.");
     } catch {
       setMessage("Ошибка при создании PDF. Попробуйте ещё раз.");
     } finally {
@@ -212,7 +265,23 @@ export default function CreatePageClient() {
         >
           Заполнить пример
         </button>
-        <p className="text-sm text-slate-500">Чтобы сразу увидеть, как выглядит готовый документ</p>
+        <button
+          type="button"
+          onClick={handleCopyLink}
+          className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+        >
+          Скопировать ссылку
+        </button>
+        <button
+          type="button"
+          onClick={handlePrint}
+          className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50 print:hidden"
+        >
+          Печать
+        </button>
+        <p className="text-sm text-slate-500 print:hidden">
+          Ссылка открывает форму с теми же полями на другом устройстве
+        </p>
       </div>
 
       <DocHistory
@@ -262,8 +331,14 @@ export default function CreatePageClient() {
         </div>
       )}
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-6">
+      {fromSource === "share" && (
+        <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+          Открыто по ссылке — поля подставлены. Проверьте данные и скачайте PDF.
+        </div>
+      )}
+
+      <div className="grid gap-8 lg:grid-cols-2 print:block">
+        <div className="space-y-6 print:hidden">
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold">Ваши реквизиты (ИП)</h2>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -284,6 +359,52 @@ export default function CreatePageClient() {
 
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold">Покупатель</h2>
+            {buyers.length > 0 && (
+              <div className="mb-4">
+                <label className="mb-1 block text-sm font-medium text-slate-700">
+                  Выбрать из сохранённых
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  <select
+                    className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+                    defaultValue=""
+                    onChange={(e) => {
+                      const idx = Number(e.target.value);
+                      if (Number.isNaN(idx) || idx < 0) return;
+                      const picked = buyers[idx];
+                      if (picked) {
+                        setBuyer(picked);
+                        setMessage("Покупатель подставлен из списка");
+                      }
+                      e.target.value = "";
+                    }}
+                  >
+                    <option value="">— выбрать покупателя —</option>
+                    {buyers.map((b, i) => (
+                      <option key={`${b.name}-${b.inn}-${i}`} value={i}>
+                        {b.name}
+                        {b.inn ? ` · ИНН ${b.inn}` : ""}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!buyer.name.trim()) return;
+                      setBuyers(removeBuyer(buyer.name, buyer.inn));
+                      setMessage("Покупатель удалён из списка");
+                    }}
+                    className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:border-red-200 hover:text-red-600"
+                    title="Удалить текущего из списка"
+                  >
+                    Удалить из списка
+                  </button>
+                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                  Список пополняется при скачивании PDF
+                </p>
+              </div>
+            )}
             <div className="grid gap-3 sm:grid-cols-2">
               <FormField label="Название / ФИО" value={buyer.name} onChange={(v) => setBuyer({ ...buyer, name: v })} className="sm:col-span-2" />
               <FormField label="ИНН" value={buyer.inn} onChange={(v) => setBuyer({ ...buyer, inn: v })} />
@@ -358,6 +479,23 @@ export default function CreatePageClient() {
               </Link>
             </p>
 
+            <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm font-medium text-slate-800">Назначение платежа</p>
+                <button
+                  type="button"
+                  onClick={handleCopyPurpose}
+                  className="rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-blue-700 ring-1 ring-slate-200 hover:bg-blue-50"
+                >
+                  Скопировать
+                </button>
+              </div>
+              <p className="text-sm text-slate-700">{purposeText}</p>
+              <p className="mt-1 text-xs text-slate-500">
+                Вставьте в банк при оплате или отправьте клиенту
+              </p>
+            </div>
+
             <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
               <input
                 type="checkbox"
@@ -388,7 +526,10 @@ export default function CreatePageClient() {
                   message.includes("успешно") ||
                   message.includes("Открыт") ||
                   message.includes("пример") ||
-                  message.includes("очищена")
+                  message.includes("очищена") ||
+                  message.includes("скопирован") ||
+                  message.includes("подставлен") ||
+                  message.includes("удалён")
                     ? "text-green-600"
                     : "text-red-600"
                 }`}
@@ -399,15 +540,15 @@ export default function CreatePageClient() {
           </section>
         </div>
 
-        <div className="overflow-auto rounded-xl border border-slate-200 bg-slate-100 p-4">
-          <p className="mb-3 text-sm font-medium text-slate-600">Предпросмотр</p>
-          <div className="inline-block origin-top-left scale-[0.55] sm:scale-[0.65] lg:scale-[0.75]">
+        <div className="overflow-auto rounded-xl border border-slate-200 bg-slate-100 p-4 print:border-0 print:bg-white print:p-0">
+          <p className="mb-3 text-sm font-medium text-slate-600 print:hidden">Предпросмотр</p>
+          <div className="inline-block origin-top-left scale-[0.55] sm:scale-[0.65] lg:scale-[0.75] print:scale-100">
             <DocumentPreview data={documentData} />
           </div>
         </div>
       </div>
 
-      <div className="mx-auto mt-8 max-w-7xl">
+      <div className="mx-auto mt-8 max-w-7xl print:hidden">
         <DealNextSteps
           steps={
             type === "schet"

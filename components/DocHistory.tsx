@@ -28,7 +28,7 @@ export default function DocHistory({ entries, onOpen, onRemove, onClear }: DocHi
   if (entries.length === 0) return null;
 
   return (
-    <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm print:hidden">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-sm font-semibold text-slate-900">Недавние документы</h2>
