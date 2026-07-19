@@ -67,44 +67,52 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <footer className="border-t border-slate-200 bg-white py-6 text-sm text-slate-500 print:hidden">
-          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 sm:flex-row">
-            <p>СчётИП — бесплатные инструменты для ИП</p>
-            <nav className="flex flex-wrap justify-center gap-4">
-              <Link href="/articles/" className="hover:text-blue-600">
-                Статьи
-              </Link>
-              <Link href="/tools/" className="hover:text-blue-600">
-                Все инструменты
-              </Link>
-              <Link href="/faq/" className="hover:text-blue-600">
-                FAQ
-              </Link>
-              <Link href="/otkryl-ip/" className="hover:text-blue-600">
-                Открыл ИП
-              </Link>
-              <Link href="/dlya-kogo/" className="hover:text-blue-600">
-                Для кого
-              </Link>
-              <Link href="/about/" className="hover:text-blue-600">
-                О проекте
-              </Link>
-              <Link href="/privacy/" className="hover:text-blue-600">
-                Конфиденциальность
-              </Link>
-              <Link href="/terms/" className="hover:text-blue-600">
-                Соглашение
-              </Link>
-              <Link href="/contacts/" className="hover:text-blue-600">
-                Контакты
-              </Link>
-              <a
-                href="https://biznes-ip.ru/memory/"
-                className="hover:text-blue-600"
-                rel="noopener noreferrer"
-              >
-                Память10
-              </a>
-            </nav>
+          <div className="mx-auto max-w-5xl space-y-4 px-4">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Другие проекты
+              </p>
+              <div className="mt-2 flex flex-wrap gap-3">
+                <a
+                  href="https://biznes-ip.ru/memory/"
+                  className="rounded-full bg-white px-4 py-2 font-medium text-emerald-700 ring-1 ring-slate-200 hover:ring-emerald-400"
+                >
+                  Память10 — тренировки памяти
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <p>СчётИП — бесплатные инструменты для ИП</p>
+              <nav className="flex flex-wrap justify-center gap-4">
+                <Link href="/articles/" className="hover:text-blue-600">
+                  Статьи
+                </Link>
+                <Link href="/tools/" className="hover:text-blue-600">
+                  Все инструменты
+                </Link>
+                <Link href="/faq/" className="hover:text-blue-600">
+                  FAQ
+                </Link>
+                <Link href="/otkryl-ip/" className="hover:text-blue-600">
+                  Открыл ИП
+                </Link>
+                <Link href="/dlya-kogo/" className="hover:text-blue-600">
+                  Для кого
+                </Link>
+                <Link href="/about/" className="hover:text-blue-600">
+                  О проекте
+                </Link>
+                <Link href="/privacy/" className="hover:text-blue-600">
+                  Конфиденциальность
+                </Link>
+                <Link href="/terms/" className="hover:text-blue-600">
+                  Соглашение
+                </Link>
+                <Link href="/contacts/" className="hover:text-blue-600">
+                  Контакты
+                </Link>
+              </nav>
+            </div>
           </div>
         </footer>
       </body>

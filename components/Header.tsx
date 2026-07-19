@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import NavLink from "@/components/NavLink";
+import ProjectsBar from "@/components/ProjectsBar";
 import { navTools } from "@/lib/tools";
 
 export default function Header() {
@@ -24,6 +25,7 @@ export default function Header() {
 
   return (
     <header className="border-b border-slate-200 bg-white print:hidden">
+      <ProjectsBar current="schet" />
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
         <Link
           href="/"
@@ -110,16 +112,16 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link
-                href="/otkryl-ip/"
+              <a
+                href="https://biznes-ip.ru/memory/"
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-3 py-2.5 hover:bg-blue-50"
+                className="block rounded-xl px-3 py-2.5 hover:bg-emerald-50"
               >
-                <span className="font-medium text-slate-900">Открыл ИП</span>
+                <span className="font-medium text-slate-900">Память10</span>
                 <span className="mt-0.5 block text-xs text-slate-500">
-                  Чек-лист первых шагов
+                  Другой проект — тренировки памяти
                 </span>
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
