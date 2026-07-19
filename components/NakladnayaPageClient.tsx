@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import NakladnayaPreview from "@/components/NakladnayaPreview";
+import BikBankFields from "@/components/BikBankFields";
 import { amountToWords } from "@/lib/amountToWords";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { emptyNakladnaya, type NakladnayaData, type NakladnayaKind } from "@/lib/nakladnayaTypes";
@@ -113,10 +114,13 @@ export default function NakladnayaPageClient() {
               <Field label="ИНН" value={data.seller.inn} onChange={(v) => setSeller({ inn: v })} />
               <Field label="КПП" value={data.seller.kpp} onChange={(v) => setSeller({ kpp: v })} />
               <Field label="Адрес" value={data.seller.address} onChange={(v) => setSeller({ address: v })} className="sm:col-span-2" />
-              <Field label="Банк" value={data.seller.bank} onChange={(v) => setSeller({ bank: v })} className="sm:col-span-2" />
-              <Field label="БИК" value={data.seller.bik} onChange={(v) => setSeller({ bik: v })} />
+              <BikBankFields
+                bik={data.seller.bik}
+                bank={data.seller.bank}
+                corrAccount={data.seller.corrAccount}
+                onChange={(patch) => setSeller(patch)}
+              />
               <Field label="Расчётный счёт" value={data.seller.account} onChange={(v) => setSeller({ account: v })} />
-              <Field label="Корр. счёт" value={data.seller.corrAccount} onChange={(v) => setSeller({ corrAccount: v })} />
             </div>
           </section>
 

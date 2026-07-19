@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ContractPreview from "@/components/ContractPreview";
+import BikBankFields from "@/components/BikBankFields";
 import { amountToWords } from "@/lib/amountToWords";
 import { emptyContract, type ContractData } from "@/lib/contractTypes";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
@@ -93,10 +94,13 @@ export default function ContractPageClient() {
               <Field label="ИНН" value={data.executor.inn} onChange={(v) => setExecutor({ inn: v })} />
               <Field label="КПП" value={data.executor.kpp} onChange={(v) => setExecutor({ kpp: v })} />
               <Field label="Адрес" value={data.executor.address} onChange={(v) => setExecutor({ address: v })} className="sm:col-span-2" />
-              <Field label="Банк" value={data.executor.bank} onChange={(v) => setExecutor({ bank: v })} className="sm:col-span-2" />
-              <Field label="БИК" value={data.executor.bik} onChange={(v) => setExecutor({ bik: v })} />
+              <BikBankFields
+                bik={data.executor.bik}
+                bank={data.executor.bank}
+                corrAccount={data.executor.corrAccount}
+                onChange={(patch) => setExecutor(patch)}
+              />
               <Field label="Расчётный счёт" value={data.executor.account} onChange={(v) => setExecutor({ account: v })} />
-              <Field label="Корр. счёт" value={data.executor.corrAccount} onChange={(v) => setExecutor({ corrAccount: v })} />
               <Field label="Телефон" value={data.executor.phone} onChange={(v) => setExecutor({ phone: v })} />
             </div>
           </section>

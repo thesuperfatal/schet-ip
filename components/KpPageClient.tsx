@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import KpPreview from "@/components/KpPreview";
 import { amountToWords } from "@/lib/amountToWords";
+import { buildCreateFromKpUrl } from "@/lib/examples";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { emptyKp, type KpData } from "@/lib/kpTypes";
 import { loadSeller, saveSeller } from "@/lib/storage";
@@ -48,6 +49,16 @@ export default function KpPageClient() {
   }
 
   const total = data.items.reduce((sum, item) => sum + item.qty * item.price, 0);
+  const createFromKpHref = buildCreateFromKpUrl({
+    clientName: data.client.name,
+    vatNote: data.vatNote,
+    items: data.items.map((item) => ({
+      name: item.name,
+      unit: item.unit,
+      qty: item.qty,
+      price: item.price,
+    })),
+  });
 
   async function handleDownload() {
     setMessage("");
@@ -191,14 +202,21 @@ export default function KpPageClient() {
             <p className="mt-1 text-right text-sm capitalize text-slate-600">{amountToWords(total)}</p>
             <p className="mt-1 text-right text-xs text-slate-500">
               После согласия клиента —{" "}
-              <Link href="/create/?type=schet" className="text-blue-600 hover:underline">
-                выставить счёт
+              <Link href={createFromKpHref} className="text-blue-600 hover:underline">
+                выставить счёт из этого КП
               </Link>{" "}
               или{" "}
               <Link href="/dogovor/" className="text-blue-600 hover:underline">
                 договор
               </Link>
             </p>
+
+            <Link
+              href={createFromKpHref}
+              className="mt-3 flex w-full items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-6 py-3 text-center text-sm font-semibold text-blue-700 hover:bg-blue-100"
+            >
+              Создать счёт из КП
+            </Link>
 
             <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
               <input

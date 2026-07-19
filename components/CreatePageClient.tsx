@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import DocumentPreview from "@/components/DocumentPreview";
+import BikBankFields from "@/components/BikBankFields";
 import FormField from "@/components/FormField";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { amountToWords } from "@/lib/amountToWords";
+import { exampleBuyer, exampleItems, exampleSeller } from "@/lib/examples";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import {
   emptyBuyer,
@@ -42,6 +44,7 @@ export default function CreatePageClient() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [fromNds, setFromNds] = useState(false);
+  const [fromKp, setFromKp] = useState(false);
 
   useEffect(() => {
     setType(getTypeFromUrl());
@@ -52,14 +55,22 @@ export default function CreatePageClient() {
     const vat = params.get("vat");
     const priceRaw = params.get("price");
     const itemName = params.get("item");
+    const qtyRaw = params.get("qty");
+    const unit = params.get("unit");
+    const buyerName = params.get("buyer");
     const from = params.get("from");
 
     if (vat) {
       setVatNote(vat);
     }
 
+    if (buyerName?.trim()) {
+      setBuyer((prev) => ({ ...prev, name: buyerName.trim() }));
+    }
+
     if (priceRaw !== null && priceRaw !== "") {
       const price = Number(String(priceRaw).replace(",", "."));
+      const qty = Number(qtyRaw);
       if (Number.isFinite(price) && price >= 0) {
         setItems((prev) => {
           const first = prev[0] ?? emptyItem();
@@ -68,7 +79,8 @@ export default function CreatePageClient() {
               ...first,
               price,
               name: itemName?.trim() || first.name,
-              qty: first.qty || 1,
+              qty: Number.isFinite(qty) && qty > 0 ? qty : first.qty || 1,
+              unit: unit?.trim() || first.unit,
             },
             ...prev.slice(1),
           ];
@@ -79,7 +91,20 @@ export default function CreatePageClient() {
     if (from === "nds" && (vat || priceRaw)) {
       setFromNds(true);
     }
+    if (from === "kp") {
+      setFromKp(true);
+    }
   }, []);
+
+  function fillExample() {
+    setSeller(exampleSeller());
+    setBuyer(exampleBuyer());
+    setItems(exampleItems());
+    setNumber("1");
+    setDate(todayIso());
+    setVatNote("Без НДС.");
+    setMessage("Подставлен пример — можете править и скачать PDF");
+  }
 
   const documentData: DocumentData = {
     type,
@@ -140,6 +165,17 @@ export default function CreatePageClient() {
         <p className="mt-2 text-slate-600">Бесплатно · без лимитов · без регистрации</p>
       </div>
 
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={fillExample}
+          className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+        >
+          Заполнить пример
+        </button>
+        <p className="text-sm text-slate-500">Чтобы сразу увидеть, как выглядит готовый документ</p>
+      </div>
+
       {fromNds && (
         <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
           Подставлено из{" "}
@@ -147,6 +183,16 @@ export default function CreatePageClient() {
             калькулятора НДС
           </Link>
           : поле «НДС» и сумма первой позиции. Проверьте наименование и реквизиты.
+        </div>
+      )}
+
+      {fromKp && (
+        <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+          Подставлено из{" "}
+          <Link href="/kp/" className="font-medium text-blue-700 hover:underline">
+            коммерческого предложения
+          </Link>
+          : покупатель и первая позиция. Проверьте реквизиты и скачайте счёт.
         </div>
       )}
 
@@ -159,10 +205,13 @@ export default function CreatePageClient() {
               <FormField label="ИНН" value={seller.inn} onChange={(v) => setSeller({ ...seller, inn: v })} hint="У ИП обычно 12 цифр" />
               <FormField label="КПП" value={seller.kpp} onChange={(v) => setSeller({ ...seller, kpp: v })} hint="У ИП часто не заполняют" />
               <FormField label="Адрес" value={seller.address} onChange={(v) => setSeller({ ...seller, address: v })} className="sm:col-span-2" />
-              <FormField label="Банк" value={seller.bank} onChange={(v) => setSeller({ ...seller, bank: v })} className="sm:col-span-2" hint="Название банка из реквизитов" />
-              <FormField label="БИК" value={seller.bik} onChange={(v) => setSeller({ ...seller, bik: v })} hint="9 цифр банковского идентификатора" />
+              <BikBankFields
+                bik={seller.bik}
+                bank={seller.bank}
+                corrAccount={seller.corrAccount}
+                onChange={(patch) => setSeller((prev) => ({ ...prev, ...patch }))}
+              />
               <FormField label="Расчётный счёт" value={seller.account} onChange={(v) => setSeller({ ...seller, account: v })} hint="20 цифр, начинается с 40802 у многих ИП" />
-              <FormField label="Корр. счёт" value={seller.corrAccount} onChange={(v) => setSeller({ ...seller, corrAccount: v })} hint="Корреспондентский счёт банка" />
               <FormField label="Телефон" value={seller.phone} onChange={(v) => setSeller({ ...seller, phone: v })} />
             </div>
           </section>
