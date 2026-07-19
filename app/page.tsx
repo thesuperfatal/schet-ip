@@ -129,6 +129,9 @@ export default function Home() {
         </div>
         <ul className="space-y-3">
           {[
+            ["/articles/naznachenie-platezha/", "Назначение платежа по счёту"],
+            ["/articles/chto-takoe-upd/", "Что такое УПД"],
+            ["/articles/patent-ili-usn/", "Патент или УСН: что выбрать"],
             ["/articles/kak-vystavit-schet/", "Как выставить счёт ИП клиенту"],
             ["/articles/schet-i-akt/", "Счёт и акт: чем отличаются"],
             ["/articles/usn-6-ili-15/", "УСН 6% или 15%: что выгоднее ИП"],

@@ -5,7 +5,7 @@ import { ARTICLES } from "@/lib/articles";
 export const metadata: Metadata = {
   title: "Статьи для ИП — счета, УСН, НДС",
   description:
-    "Статьи для ИП: как выставить счёт, чем отличается акт, УСН 6% или 15%, НДС на УСН в 2026.",
+    "Статьи для ИП: назначение платежа, УПД, патент или УСН, как выставить счёт, НДС на упрощёнке.",
   alternates: { canonical: "https://biznes-ip.ru/articles/" },
 };
 
