@@ -121,6 +121,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: true,
   },
   {
+    href: "/tools/",
+    title: "Все инструменты",
+    short: "Полный каталог документов и калькуляторов.",
+    tip: "Каталог всех инструментов СчётИП",
+    category: "guides",
+    navLabel: "Все",
+    inNav: false,
+  },
+  {
     href: "/otkryl-ip/",
     title: "Чек-лист «Открыл ИП»",
     short: "Пошагово: налоги, счёт, документы.",

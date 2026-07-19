@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ContractPreview from "@/components/ContractPreview";
 import BikBankFields from "@/components/BikBankFields";
+import DealNextSteps from "@/components/DealNextSteps";
 import { amountToWords } from "@/lib/amountToWords";
 import { emptyContract, type ContractData } from "@/lib/contractTypes";
+import { buildDealUrl, readDealParams } from "@/lib/dealFlow";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import type { BuyerInfo, SellerInfo } from "@/lib/types";
@@ -16,12 +18,34 @@ export default function ContractPageClient() {
   const [requireFields, setRequireFields] = useState(true);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [fromSource, setFromSource] = useState("");
 
   useEffect(() => {
     const saved = loadSeller();
     if (saved) {
       setData((prev) => ({ ...prev, executor: saved }));
     }
+
+    const deal = readDealParams(new URLSearchParams(window.location.search));
+    if (deal.from) setFromSource(deal.from);
+
+    setData((prev) => ({
+      ...prev,
+      customer: {
+        ...prev.customer,
+        name: deal.buyer?.trim() || prev.customer.name,
+        inn: deal.buyerInn?.trim() || prev.customer.inn,
+        address: deal.buyerAddress?.trim() || prev.customer.address,
+      },
+      subject: deal.subject?.trim() || deal.item?.trim() || prev.subject,
+      amount:
+        deal.amount !== undefined
+          ? deal.amount
+          : deal.price !== undefined
+            ? deal.price * (deal.qty && deal.qty > 0 ? deal.qty : 1)
+            : prev.amount,
+      vatNote: deal.vat?.trim() || prev.vatNote,
+    }));
   }, []);
 
   function setExecutor(patch: Partial<SellerInfo>) {
@@ -31,6 +55,41 @@ export default function ContractPageClient() {
   function setCustomer(patch: Partial<BuyerInfo>) {
     setData((prev) => ({ ...prev, customer: { ...prev.customer, ...patch } }));
   }
+
+  const schetHref = buildDealUrl(
+    "/create/",
+    "dogovor",
+    {
+      buyer: data.customer.name,
+      buyerInn: data.customer.inn,
+      buyerAddress: data.customer.address,
+      item: data.subject,
+      price: data.amount,
+      qty: 1,
+      unit: "усл",
+      vat: data.vatNote,
+      subject: data.subject,
+      amount: data.amount,
+    },
+    { type: "schet" }
+  );
+
+  const aktHref = buildDealUrl(
+    "/create/",
+    "dogovor",
+    {
+      buyer: data.customer.name,
+      buyerInn: data.customer.inn,
+      buyerAddress: data.customer.address,
+      item: data.subject,
+      price: data.amount,
+      qty: 1,
+      unit: "усл",
+      vat: data.vatNote,
+      amount: data.amount,
+    },
+    { type: "akt" }
+  );
 
   async function handleDownload() {
     setMessage("");
@@ -70,6 +129,12 @@ export default function ContractPageClient() {
           Простой шаблон в PDF · бесплатно · без регистрации
         </p>
       </div>
+
+      {fromSource === "kp" && (
+        <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+          Подставлено из КП: заказчик, предмет и сумма. Проверьте текст договора.
+        </div>
+      )}
 
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-6">
@@ -228,6 +293,28 @@ export default function ContractPageClient() {
             <ContractPreview data={data} />
           </div>
         </div>
+      </div>
+
+      <div className="mt-8">
+        <DealNextSteps
+          steps={[
+            {
+              href: schetHref,
+              label: "Выставить счёт",
+              hint: "Сумма и заказчик из договора",
+            },
+            {
+              href: aktHref,
+              label: "Сделать акт",
+              hint: "После выполнения работ",
+            },
+            {
+              href: "/kp/",
+              label: "Коммерческое предложение",
+              hint: "Если нужно согласовать цены заново",
+            },
+          ]}
+        />
       </div>
 
       <div

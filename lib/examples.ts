@@ -1,4 +1,5 @@
 import { emptyBuyer, emptyItem, emptySeller, type BuyerInfo, type LineItem, type SellerInfo } from "./types";
+import { buildDealUrl, dealFromItems } from "./dealFlow";
 
 /** Демо-данные для кнопки «Заполнить пример». */
 export function exampleSeller(): SellerInfo {
@@ -43,19 +44,14 @@ export function buildCreateFromKpUrl(params: {
   vatNote: string;
   items: { name: string; unit: string; qty: number; price: number }[];
 }): string {
-  const sp = new URLSearchParams();
-  sp.set("type", "schet");
-  sp.set("from", "kp");
-  if (params.clientName.trim()) sp.set("buyer", params.clientName.trim());
-  if (params.vatNote.trim()) sp.set("vat", params.vatNote.trim());
-
-  const first = params.items[0];
-  if (first) {
-    if (first.name.trim()) sp.set("item", first.name.trim());
-    sp.set("price", String(first.price));
-    sp.set("qty", String(first.qty));
-    if (first.unit.trim()) sp.set("unit", first.unit.trim());
-  }
-
-  return `/create/?${sp.toString()}`;
+  return buildDealUrl(
+    "/create/",
+    "kp",
+    dealFromItems({
+      clientName: params.clientName,
+      vatNote: params.vatNote,
+      items: params.items,
+    }),
+    { type: "schet" }
+  );
 }

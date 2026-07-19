@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import KpPreview from "@/components/KpPreview";
+import DealNextSteps from "@/components/DealNextSteps";
 import { amountToWords } from "@/lib/amountToWords";
-import { buildCreateFromKpUrl } from "@/lib/examples";
+import { buildDealUrl, dealFromItems } from "@/lib/dealFlow";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { emptyKp, type KpData } from "@/lib/kpTypes";
 import { loadSeller, saveSeller } from "@/lib/storage";
@@ -49,8 +50,10 @@ export default function KpPageClient() {
   }
 
   const total = data.items.reduce((sum, item) => sum + item.qty * item.price, 0);
-  const createFromKpHref = buildCreateFromKpUrl({
+  const dealPayload = dealFromItems({
     clientName: data.client.name,
+    clientInn: data.client.inn,
+    clientAddress: data.client.address,
     vatNote: data.vatNote,
     items: data.items.map((item) => ({
       name: item.name,
@@ -59,6 +62,8 @@ export default function KpPageClient() {
       price: item.price,
     })),
   });
+  const createFromKpHref = buildDealUrl("/create/", "kp", dealPayload, { type: "schet" });
+  const dogovorFromKpHref = buildDealUrl("/dogovor/", "kp", dealPayload);
 
   async function handleDownload() {
     setMessage("");
@@ -201,22 +206,23 @@ export default function KpPageClient() {
             </p>
             <p className="mt-1 text-right text-sm capitalize text-slate-600">{amountToWords(total)}</p>
             <p className="mt-1 text-right text-xs text-slate-500">
-              После согласия клиента —{" "}
-              <Link href={createFromKpHref} className="text-blue-600 hover:underline">
-                выставить счёт из этого КП
-              </Link>{" "}
-              или{" "}
-              <Link href="/dogovor/" className="text-blue-600 hover:underline">
-                договор
-              </Link>
+              После согласия клиента — оформите договор или счёт кнопками ниже.
             </p>
 
-            <Link
-              href={createFromKpHref}
-              className="mt-3 flex w-full items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-6 py-3 text-center text-sm font-semibold text-blue-700 hover:bg-blue-100"
-            >
-              Создать счёт из КП
-            </Link>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              <Link
+                href={dogovorFromKpHref}
+                className="flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-800 hover:bg-slate-50"
+              >
+                Договор из КП
+              </Link>
+              <Link
+                href={createFromKpHref}
+                className="flex items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-center text-sm font-semibold text-blue-700 hover:bg-blue-100"
+              >
+                Счёт из КП
+              </Link>
+            </div>
 
             <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
               <input
@@ -258,6 +264,28 @@ export default function KpPageClient() {
             <KpPreview data={data} />
           </div>
         </div>
+      </div>
+
+      <div className="mt-8">
+        <DealNextSteps
+          steps={[
+            {
+              href: dogovorFromKpHref,
+              label: "Договор",
+              hint: "Закрепить условия после согласия",
+            },
+            {
+              href: createFromKpHref,
+              label: "Счёт на оплату",
+              hint: "Позиции и клиент уже подставятся",
+            },
+            {
+              href: buildDealUrl("/create/", "kp", dealPayload, { type: "akt" }),
+              label: "Акт",
+              hint: "Когда работы выполнены",
+            },
+          ]}
+        />
       </div>
 
       <div

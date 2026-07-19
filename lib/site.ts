@@ -3,6 +3,7 @@ export const SITE_NAME = "СчётИП";
 
 export const SITE_PAGES = [
   { path: "/", title: "Главная", priority: 1, changeFrequency: "weekly" as const },
+  { path: "/tools/", title: "Все инструменты", priority: 0.95, changeFrequency: "weekly" as const },
   { path: "/create/", title: "Создать счёт или акт", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/dogovor/", title: "Договор оказания услуг", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/nakladnaya/", title: "Товарная накладная / УПД", priority: 0.9, changeFrequency: "monthly" as const },

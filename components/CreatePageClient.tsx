@@ -8,6 +8,8 @@ import FormField from "@/components/FormField";
 import { downloadPdfFromElement } from "@/lib/generatePdf";
 import { amountToWords } from "@/lib/amountToWords";
 import { exampleBuyer, exampleItems, exampleSeller } from "@/lib/examples";
+import { buildDealUrl, dealFromItems, readDealParams } from "@/lib/dealFlow";
+import DealNextSteps from "@/components/DealNextSteps";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import {
   emptyBuyer,
@@ -44,7 +46,7 @@ export default function CreatePageClient() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [fromNds, setFromNds] = useState(false);
-  const [fromKp, setFromKp] = useState(false);
+  const [fromSource, setFromSource] = useState("");
 
   useEffect(() => {
     setType(getTypeFromUrl());
@@ -52,47 +54,41 @@ export default function CreatePageClient() {
     if (saved) setSeller(saved);
 
     const params = new URLSearchParams(window.location.search);
-    const vat = params.get("vat");
-    const priceRaw = params.get("price");
-    const itemName = params.get("item");
-    const qtyRaw = params.get("qty");
-    const unit = params.get("unit");
-    const buyerName = params.get("buyer");
-    const from = params.get("from");
+    const deal = readDealParams(params);
+    const from = deal.from || params.get("from") || "";
 
-    if (vat) {
-      setVatNote(vat);
+    if (deal.vat) setVatNote(deal.vat);
+
+    if (deal.buyer || deal.buyerInn || deal.buyerAddress) {
+      setBuyer((prev) => ({
+        ...prev,
+        name: deal.buyer?.trim() || prev.name,
+        inn: deal.buyerInn?.trim() || prev.inn,
+        address: deal.buyerAddress?.trim() || prev.address,
+      }));
     }
 
-    if (buyerName?.trim()) {
-      setBuyer((prev) => ({ ...prev, name: buyerName.trim() }));
+    if (deal.price !== undefined || deal.item) {
+      setItems((prev) => {
+        const first = prev[0] ?? emptyItem();
+        return [
+          {
+            ...first,
+            price: deal.price !== undefined ? deal.price : first.price,
+            name: deal.item?.trim() || first.name,
+            qty: deal.qty && deal.qty > 0 ? deal.qty : first.qty || 1,
+            unit: deal.unit?.trim() || first.unit,
+          },
+          ...prev.slice(1),
+        ];
+      });
     }
 
-    if (priceRaw !== null && priceRaw !== "") {
-      const price = Number(String(priceRaw).replace(",", "."));
-      const qty = Number(qtyRaw);
-      if (Number.isFinite(price) && price >= 0) {
-        setItems((prev) => {
-          const first = prev[0] ?? emptyItem();
-          return [
-            {
-              ...first,
-              price,
-              name: itemName?.trim() || first.name,
-              qty: Number.isFinite(qty) && qty > 0 ? qty : first.qty || 1,
-              unit: unit?.trim() || first.unit,
-            },
-            ...prev.slice(1),
-          ];
-        });
-      }
-    }
-
-    if (from === "nds" && (vat || priceRaw)) {
+    if (from === "nds" && (deal.vat || deal.price !== undefined)) {
       setFromNds(true);
     }
-    if (from === "kp") {
-      setFromKp(true);
+    if (from === "kp" || from === "dogovor" || from === "schet") {
+      setFromSource(from);
     }
   }, []);
 
@@ -117,6 +113,16 @@ export default function CreatePageClient() {
   };
 
   const total = items.reduce((sum, item) => sum + item.qty * item.price, 0);
+  const dealPayload = dealFromItems({
+    clientName: buyer.name,
+    clientInn: buyer.inn,
+    clientAddress: buyer.address,
+    vatNote,
+    items,
+  });
+  const nextAktHref = buildDealUrl("/create/", "schet", dealPayload, { type: "akt" });
+  const nextSchetHref = buildDealUrl("/create/", type, dealPayload, { type: "schet" });
+  const nextDogovorHref = buildDealUrl("/dogovor/", type === "akt" ? "akt" : "schet", dealPayload);
 
   function updateItem(id: string, patch: Partial<LineItem>) {
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...patch } : item)));
@@ -186,13 +192,29 @@ export default function CreatePageClient() {
         </div>
       )}
 
-      {fromKp && (
+      {fromSource === "kp" && (
         <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
           Подставлено из{" "}
           <Link href="/kp/" className="font-medium text-blue-700 hover:underline">
             коммерческого предложения
           </Link>
-          : покупатель и первая позиция. Проверьте реквизиты и скачайте счёт.
+          : покупатель и позиция. Проверьте реквизиты.
+        </div>
+      )}
+
+      {fromSource === "dogovor" && (
+        <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+          Подставлено из{" "}
+          <Link href="/dogovor/" className="font-medium text-blue-700 hover:underline">
+            договора
+          </Link>
+          : заказчик, предмет и сумма.
+        </div>
+      )}
+
+      {fromSource === "schet" && type === "akt" && (
+        <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+          Подставлено из счёта: те же стороны и позиции. Можно скачать акт.
         </div>
       )}
 
@@ -330,6 +352,43 @@ export default function CreatePageClient() {
             <DocumentPreview data={documentData} />
           </div>
         </div>
+      </div>
+
+      <div className="mx-auto mt-8 max-w-7xl">
+        <DealNextSteps
+          steps={
+            type === "schet"
+              ? [
+                  {
+                    href: nextAktHref,
+                    label: "Сделать акт",
+                    hint: "Те же стороны и позиции — закрыть сделку",
+                  },
+                  {
+                    href: nextDogovorHref,
+                    label: "Оформить договор",
+                    hint: "Если нужен договор по этой сумме",
+                  },
+                  {
+                    href: "/nakladnaya/",
+                    label: "Накладная / УПД",
+                    hint: "Если отгружаете товар",
+                  },
+                ]
+              : [
+                  {
+                    href: nextSchetHref,
+                    label: "Выставить счёт",
+                    hint: "Если оплата ещё не оформлена",
+                  },
+                  {
+                    href: "/kp/",
+                    label: "Коммерческое предложение",
+                    hint: "Для следующего клиента",
+                  },
+                ]
+          }
+        />
       </div>
 
       <div

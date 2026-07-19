@@ -71,6 +71,9 @@ export default function RootLayout({
               <Link href="/articles/" className="hover:text-blue-600">
                 Статьи
               </Link>
+              <Link href="/tools/" className="hover:text-blue-600">
+                Все инструменты
+              </Link>
               <Link href="/faq/" className="hover:text-blue-600">
                 FAQ
               </Link>
