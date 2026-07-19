@@ -26,6 +26,7 @@ const SCENARIOS = [
       { href: "/kp/", label: "КП", hint: "Отправить цены клиенту" },
       { href: "/dogovor/", label: "Договор", hint: "Зафиксировать условия" },
       { href: "/create/?type=schet", label: "Счёт", hint: "Получить оплату" },
+      { href: "/rekvizity/", label: "Реквизиты", hint: "Карточка для перевода" },
       { href: "/create/?type=akt", label: "Акт", hint: "Закрыть работы" },
     ],
     extras: [

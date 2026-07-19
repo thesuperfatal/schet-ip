@@ -98,7 +98,11 @@ export default function NaznacheniePlatezhaArticlePage() {
             <Link href="/create/?type=schet" className="font-medium text-blue-700 hover:underline">
               создание счёта
             </Link>
-            , заполните поля — текст для банка появится под итогом. Бесплатно, без регистрации.
+            , заполните поля — текст для банка появится под итогом. Или отправьте клиенту{" "}
+            <Link href="/rekvizity/" className="font-medium text-blue-700 hover:underline">
+              карточку реквизитов
+            </Link>
+            . Бесплатно, без регистрации.
           </p>
         </div>
       </div>

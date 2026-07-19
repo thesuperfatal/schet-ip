@@ -94,6 +94,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: true,
   },
   {
+    href: "/rekvizity/",
+    title: "Реквизиты для оплаты",
+    short: "Карточка банковских реквизитов для клиента.",
+    tip: "Реквизиты ИП в PDF",
+    category: "documents",
+    navLabel: "Реквизиты",
+    inNav: true,
+  },
+  {
     href: "/usn/",
     title: "Калькулятор УСН",
     short: "6% или 15%, взносы, сколько откладывать.",
