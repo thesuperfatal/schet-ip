@@ -85,6 +85,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: true,
   },
   {
+    href: "/patent-usn/",
+    title: "Патент или УСН",
+    short: "Сравнить патент с упрощёнкой 6% и 15%.",
+    tip: "Сравнить патент и УСН",
+    category: "calculators",
+    navLabel: "Патент",
+    inNav: true,
+  },
+  {
     href: "/vznosy/",
     title: "Страховые взносы ИП",
     short: "Фикс + 1% свыше 300 тыс. ₽.",

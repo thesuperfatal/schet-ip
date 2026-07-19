@@ -73,6 +73,10 @@ export default function PatentIliUsnArticlePage() {
               «УСН 6% или 15%»
             </Link>{" "}
             и в{" "}
+            <Link href="/patent-usn/" className="text-blue-600 hover:underline">
+              калькуляторе «Патент или УСН»
+            </Link>{" "}
+            и в{" "}
             <Link href="/usn/" className="text-blue-600 hover:underline">
               калькуляторе УСН
             </Link>
@@ -102,13 +106,14 @@ export default function PatentIliUsnArticlePage() {
         </section>
 
         <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="font-medium text-slate-900">Посчитать УСН онлайн</p>
+          <p className="font-medium text-slate-900">Сравнить патент и УСН онлайн</p>
           <p className="mt-2 text-sm">
             Откройте{" "}
-            <Link href="/usn/" className="font-medium text-blue-700 hover:underline">
-              калькулятор УСН СчётИП
+            <Link href="/patent-usn/" className="font-medium text-blue-700 hover:underline">
+              калькулятор «Патент или УСН»
             </Link>
-            : ориентир по налогу и сколько откладывать. Бесплатно, без регистрации.
+            : укажите доход и стоимость патента — увидите, что выгоднее с учётом взносов.
+            Бесплатно, без регистрации.
           </p>
         </div>
       </div>

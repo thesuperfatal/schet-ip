@@ -42,6 +42,10 @@ export default function UsnPage() {
           <Link href="/nds/" className="text-blue-600 hover:underline">
             калькулятор НДС
           </Link>
+          . Сравнить с патентом:{" "}
+          <Link href="/patent-usn/" className="text-blue-600 hover:underline">
+            патент или УСН
+          </Link>
           . Отдельно можно посчитать только взносы:{" "}
           <Link href="/vznosy/" className="text-blue-600 hover:underline">
             калькулятор страховых взносов ИП
