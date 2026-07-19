@@ -4,12 +4,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Что такое УПД и чем отличается от накладной",
   description:
-    "УПД для ИП простыми словами: зачем нужен универсальный передаточный документ, чем отличается от товарной накладной и когда достаточно акта.",
+    "Клиент просит УПД или накладную — что это вообще и когда вместо них хватает обычного акта.",
   keywords: "что такое УПД, УПД для ИП, товарная накладная или УПД, универсальный передаточный документ",
   alternates: { canonical: "https://biznes-ip.ru/articles/chto-takoe-upd/" },
   openGraph: {
     title: "Что такое УПД",
-    description: "Простое объяснение: УПД, накладная и акт — когда какой документ.",
+    description: "Накладная, УПД и акт — когда какой документ, без бюрократического тумана.",
     url: "https://biznes-ip.ru/articles/chto-takoe-upd/",
     locale: "ru_RU",
     type: "article",
@@ -29,77 +29,59 @@ export default function ChtoTakoeUpdArticlePage() {
         Что такое УПД и чем отличается от накладной
       </h1>
       <p className="mt-4 text-lg text-slate-600">
-        УПД — универсальный передаточный документ. Им часто закрывают отгрузку товара: и передачу,
-        и (при необходимости) сведения для НДС в одном бланке.
+        Расшифровка звучит грозно: «универсальный передаточный документ». На практике клиент просто
+        хочет бумажку, что товар уехал к нему — иногда ещё и с заделом под НДС.
       </p>
 
       <div className="mt-8 space-y-6 text-slate-700 leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Простыми словами</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Без учебника</h2>
           <p className="mt-2">
-            Товарная накладная фиксирует, что товар передан покупателю. УПД может совмещать роль
-            накладной и счёта-фактуры (в зависимости от статуса документа). Для малого ИП на
-            практике важно другое: клиент просит «накладную или УПД» — значит, нужен документ на
-            отгрузку, а не только счёт.
+            Накладная говорит: товар передан. УПД умеет быть и накладной, и чем-то вроде
+            счёта-фактуры — в зависимости от того, какой статус документу присвоили. Мелкому ИП
+            важнее другое: если пишут «нужна накладная или УПД», одного счёта на оплату мало. Нужен
+            документ именно на отгрузку.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Когда достаточно акта</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Делаете услуги — чаще хватит акта</h2>
           <p className="mt-2">
-            Если вы оказываете услуги (дизайн, разработка, консультации), обычно хватает{" "}
+            Дизайн, код, консультации, маркетинг — тут обычно просят{" "}
             <Link href="/create/?type=akt" className="text-blue-600 hover:underline">
-              акта выполненных работ
+              акт
             </Link>
-            . Накладная/УПД чаще нужны при продаже товара или материальных ценностей.
+            . Накладная с УПД чаще про коробки, материалы, физический товар.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Счёт, акт, накладная — связка</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li>
-              <strong>Счёт</strong> — попросить оплату;
-            </li>
-            <li>
-              <strong>Акт</strong> — подтвердить, что услуга оказана;
-            </li>
-            <li>
-              <strong>Накладная / УПД</strong> — подтвердить передачу товара.
-            </li>
-          </ul>
-          <p className="mt-3">
-            Подробнее про счёт и акт — в статье{" "}
-            <Link href="/articles/schet-i-akt/" className="text-blue-600 hover:underline">
-              «Счёт и акт: чем отличаются»
-            </Link>
-            .
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-slate-900">Что указать в документе</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Кто за что отвечает</h2>
           <p className="mt-2">
-            Стороны (продавец и покупатель), наименование товара, количество, цену, сумму, дату
-            отгрузки. Если работаете с НДС — проверьте ставку и формулировку в документе. Для
-            расчёта удобен{" "}
-            <Link href="/nds/" className="text-blue-600 hover:underline">
-              калькулятор НДС
+            Счёт — «заплатите». Акт — «услугу приняли». Накладная / УПД — «товар отдали». Про счёт
+            и акт отдельно расписал{" "}
+            <Link href="/articles/schet-i-akt/" className="text-blue-600 hover:underline">
+              здесь
             </Link>
             .
           </p>
         </section>
 
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="font-medium text-slate-900">Сделать накладную / УПД онлайн</p>
-          <p className="mt-2 text-sm">
-            В СчётИП есть простой генератор:{" "}
-            <Link href="/nakladnaya/" className="font-medium text-blue-700 hover:underline">
-              накладная или УПД в PDF
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900">Что писать внутри</h2>
+          <p className="mt-2">
+            Кто продавец и покупатель, что за товар, сколько штук, по какой цене, какая сумма, когда
+            отгрузили. С НДС — не забудьте ставку. Посчитать сумму можно в{" "}
+            <Link href="/nds/" className="text-blue-600 hover:underline">
+              калькуляторе НДС
             </Link>
-            . Бесплатно, без регистрации.
+            , а сам документ — в{" "}
+            <Link href="/nakladnaya/" className="text-blue-600 hover:underline">
+              генераторе накладной / УПД
+            </Link>
+            .
           </p>
-        </div>
+        </section>
       </div>
     </article>
   );

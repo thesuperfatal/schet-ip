@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Как выставить счёт ИП клиенту: пошагово",
+  title: "Как выставить счёт ИП клиенту",
   description:
-    "Как ИП выставить счёт на оплату клиенту: какие реквизиты указать, что писать про НДС, как отправить PDF и когда нужен акт.",
+    "Клиент просит счёт — что туда писать, куда смотреть реквизиты и как не запутаться с НДС. Без лекций, по делу.",
   keywords: "как выставить счёт ИП, счёт на оплату онлайн, реквизиты в счёте, счёт PDF",
   alternates: { canonical: "https://biznes-ip.ru/articles/kak-vystavit-schet/" },
   openGraph: {
     title: "Как выставить счёт ИП клиенту",
-    description: "Пошаговая инструкция: реквизиты, сумма, НДС и PDF без Word.",
+    description: "Реквизиты, сумма, НДС и PDF — без Word и лишней теории.",
     url: "https://biznes-ip.ru/articles/kak-vystavit-schet/",
     locale: "ru_RU",
     type: "article",
@@ -26,71 +26,77 @@ export default function KakVystavitSchetArticlePage() {
         · 19 июля 2026
       </p>
       <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-        Как выставить счёт ИП клиенту: пошагово
+        Как выставить счёт ИП клиенту
       </h1>
       <p className="mt-4 text-lg text-slate-600">
-        Чтобы получить оплату, клиенту нужен понятный счёт с вашими реквизитами и суммой. Ниже —
-        простой порядок без сложных программ.
+        Знакомая ситуация: работа сделана или вот-вот начнётся, а клиент пишет — «скиньте счёт».
+        Не обязательно лезть в 1С или ковырять старый Word. Достаточно нормального PDF с вашими
+        реквизитами и понятной суммой.
       </p>
 
       <div className="mt-8 space-y-6 text-slate-700 leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">1. Подготовьте реквизиты</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Сначала соберите «куда платить»</h2>
           <p className="mt-2">
-            Нужны ФИО / название ИП, ИНН, адрес, банк, БИК, расчётный и корреспондентский счета.
-            Эти данные обычно есть в договоре с банком или в личном кабинете.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-slate-900">2. Укажите покупателя и услугу</h2>
-          <p className="mt-2">
-            Напишите, кому выставляете счёт, и что именно оплачивается: наименование, количество,
-            цену. Чем понятнее формулировка, тем меньше вопросов у бухгалтерии клиента.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-slate-900">3. Проверьте НДС</h2>
-          <p className="mt-2">
-            Если вы без НДС — так и напишите: «Без НДС». Если ставка есть (например 5%, 7% или
-            22%), посчитайте сумму заранее. Удобно сделать это в{" "}
-            <Link href="/nds/" className="text-blue-600 hover:underline">
-              калькуляторе НДС
-            </Link>{" "}
-            и сразу перейти к созданию счёта.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-slate-900">4. Сформируйте PDF и отправьте</h2>
-          <p className="mt-2">
-            Скачайте счёт в PDF и отправьте клиенту по email или мессенджеру. Номер и дату лучше
-            вести последовательно — так проще искать документы потом.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-slate-900">5. Закройте сделку актом</h2>
-          <p className="mt-2">
-            После выполнения работ оформите акт. Подробнее — в статье{" "}
-            <Link href="/articles/schet-i-akt/" className="text-blue-600 hover:underline">
-              «Счёт и акт: чем отличаются»
+            В счёте ждут не поэзию, а железо: ФИО или название ИП, ИНН, адрес, банк, БИК, расчётный
+            и корр. счёт. Обычно всё это лежит в договоре с банком или в личном кабинете — раз
+            скопировали, дальше живёт у вас в браузере, если пользуетесь{" "}
+            <Link href="/create/?type=schet" className="text-blue-600 hover:underline">
+              формой на СчётИП
             </Link>
             .
           </p>
         </section>
 
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="font-medium text-slate-900">Сделать счёт за пару минут</p>
-          <p className="mt-2 text-sm">
-            Откройте{" "}
-            <Link href="/create/?type=schet" className="font-medium text-blue-700 hover:underline">
-              генератор счетов СчётИП
-            </Link>
-            : заполните поля, посмотрите предпросмотр и скачайте PDF. Бесплатно, без регистрации.
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900">Кому и за что</h2>
+          <p className="mt-2">
+            Укажите покупателя так, как он сам себя пишет в договорах. А в позиции — человеческим
+            языком: не «услуги по договору», а «дизайн лендинга» или «сопровождение сайта, июль».
+            Бухгалтерия клиента потом меньше звонит уточнять.
           </p>
-        </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900">НДС — не забудьте строку</h2>
+          <p className="mt-2">
+            Работаете без НДС — так и напишите: «Без НДС». Появилась ставка (5%, 7%, 22% — смотря
+            по вашей ситуации) — сначала посчитайте цифру, потом вставьте фразу в счёт. Для этого
+            есть{" "}
+            <Link href="/nds/" className="text-blue-600 hover:underline">
+              калькулятор НДС
+            </Link>
+            : на выходе и сумма, и готовая формулировка.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900">Отправили — и номер не теряйте</h2>
+          <p className="mt-2">
+            PDF ушёл в почту или Telegram — отлично. Номер и дату лучше вести подряд: потом, когда
+            клиент спросит «а где счёт за май», вы не будете рыться по папкам «финал_финал2».
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900">После оплаты — акт</h2>
+          <p className="mt-2">
+            Счёт просит деньги. Акт говорит: работа принята. Их часто делают парой — подробнее в{" "}
+            <Link href="/articles/schet-i-akt/" className="text-blue-600 hover:underline">
+              заметке про счёт и акт
+            </Link>
+            .
+          </p>
+        </section>
+
+        <p className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+          Если нужно прямо сейчас:{" "}
+          <Link href="/create/?type=schet" className="font-medium text-blue-700 hover:underline">
+            откройте форму счёта
+          </Link>
+          , заполните поля, гляньте предпросмотр и скачайте PDF. Можно даже подставить пример и
+          потом поменять на свои данные.
+        </p>
       </div>
     </article>
   );

@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Счёт и акт для ИП: чем отличаются и когда нужны",
+  title: "Счёт и акт для ИП: в чём разница",
   description:
-    "Чем счёт на оплату отличается от акта выполненных работ, в каком порядке их выставлять ИП и как оформить документы онлайн.",
+    "Счёт просит оплатить, акт закрывает работу. Когда какой документ нужен и что в них писать — без канцелярита.",
   keywords: "счёт и акт для ИП, чем отличается счёт от акта, акт выполненных работ, счёт на оплату",
   alternates: { canonical: "https://biznes-ip.ru/articles/schet-i-akt/" },
   openGraph: {
-    title: "Счёт и акт для ИП: чем отличаются",
-    description: "Когда выставлять счёт, когда акт, и как оформить оба документа бесплатно.",
+    title: "Счёт и акт для ИП: в чём разница",
+    description: "Когда слать счёт, когда акт, и зачем оба.",
     url: "https://biznes-ip.ru/articles/schet-i-akt/",
     locale: "ru_RU",
     type: "article",
@@ -26,74 +26,66 @@ export default function SchetIAktArticlePage() {
         · 19 июля 2026
       </p>
       <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-        Счёт и акт для ИП: чем отличаются и когда нужны
+        Счёт и акт для ИП: в чём разница
       </h1>
       <p className="mt-4 text-lg text-slate-600">
-        Два самых частых документа у ИП при работе с клиентами — счёт на оплату и акт. Их часто
-        путают, хотя задачи разные.
+        Эти два файла путают чаще всего. Звучат похоже, а смысл разный — как «чек в кафе» и
+        «расписка, что обед съели».
       </p>
 
       <div className="mt-8 space-y-6 text-slate-700 leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Счёт на оплату</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Счёт — «заплатите вот столько»</h2>
           <p className="mt-2">
-            Счёт показывает, <strong>сколько и за что нужно заплатить</strong>. Его отправляют
-            клиенту до оплаты или вместе с договором. В счёте обычно указывают реквизиты ИП,
-            наименование услуги/товара, количество, цену, итоговую сумму и примечание про НДС.
+            Его шлют, когда нужно получить деньги: до старта, по предоплате или как напоминание.
+            Внутри — ваши реквизиты, что оплачивают, количество, цена, итог и пометка про НДС. Без
+            счёта крупный клиент часто просто не проведёт платёж через свою бухгалтерию.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Акт выполненных работ</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Акт — «работу приняли»</h2>
           <p className="mt-2">
-            Акт фиксирует, что работы или услуги <strong>уже выполнены</strong> и заказчик их
-            принимает. Это важно для закрытия сделки, учёта и споров. Часто акт делают после оплаты
-            или одновременно с ней — по договорённости сторон.
+            Акт уже про факт: услуга оказана, стороны согласны. Его любят за то, что потом меньше
+            споров «а вы вообще что-то делали?». Подписывают после сдачи, иногда вместе с оплатой —
+            как договоритесь.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Типовой порядок</h2>
-          <ol className="mt-2 list-decimal space-y-2 pl-5">
-            <li>Договорились об услуге (иногда оформляют договор).</li>
-            <li>Выставили счёт.</li>
-            <li>Клиент оплатил.</li>
-            <li>Сделали работу и подписали акт.</li>
-          </ol>
+          <h2 className="text-xl font-semibold text-slate-900">Как это обычно идёт по жизни</h2>
           <p className="mt-2">
-            Порядок может меняться: предоплата, постоплата, частичные акты по этапам.
+            Поговорили → (иногда) договор → счёт → оплата → сделали → акт. Но жизнь ломает схемы:
+            кто-то платит после акта, кто-то берёт предоплату 50/50, кто-то закрывает проект
+            несколькими актами по этапам. Главное — чтобы цифры и названия в счёте и акте не
+            разъезжались.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Что указать в обоих документах</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li>Реквизиты ИП и покупателя (ИНН, адрес).</li>
-            <li>Номер и дату документа.</li>
-            <li>Понятное наименование услуги.</li>
-            <li>Сумму цифрами и желательно прописью.</li>
-            <li>Фразу про НДС («Без НДС» или ставка/сумма).</li>
-          </ul>
+          <h2 className="text-xl font-semibold text-slate-900">Что не забыть в обоих</h2>
+          <p className="mt-2">
+            Кто вы и кто клиент (ИНН, адрес), номер и дата, нормальное название услуги, сумма.
+            Прописью — приятный бонус, особенно если документ потом смотрит банк или юрист.
+            Про НДС — либо «Без НДС», либо ставка и сумма, без туманных «в т.ч. налог».
+          </p>
         </section>
 
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="font-medium text-slate-900">Оформить онлайн</p>
-          <p className="mt-2 text-sm">
-            В СчётИП можно бесплатно{" "}
-            <Link href="/create/?type=schet" className="font-medium text-blue-700 hover:underline">
-              создать счёт
-            </Link>{" "}
-            или{" "}
-            <Link href="/create/?type=akt" className="font-medium text-blue-700 hover:underline">
-              акт в PDF
-            </Link>
-            . Реквизиты сохраняются в браузере. Нужен договор — есть{" "}
-            <Link href="/dogovor/" className="font-medium text-blue-700 hover:underline">
-              шаблон договора оказания услуг
-            </Link>
-            .
-          </p>
-        </div>
+        <p className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+          На СчётИП можно сделать{" "}
+          <Link href="/create/?type=schet" className="font-medium text-blue-700 hover:underline">
+            счёт
+          </Link>{" "}
+          и{" "}
+          <Link href="/create/?type=akt" className="font-medium text-blue-700 hover:underline">
+            акт
+          </Link>{" "}
+          в PDF. Реквизиты запоминаются в браузере. Если нужен ещё и{" "}
+          <Link href="/dogovor/" className="font-medium text-blue-700 hover:underline">
+            договор
+          </Link>
+          — он тоже рядом.
+        </p>
       </div>
     </article>
   );

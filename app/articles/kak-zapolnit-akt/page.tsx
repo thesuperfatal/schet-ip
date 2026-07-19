@@ -4,13 +4,13 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Как заполнить акт выполненных работ ИП",
   description:
-    "Как ИП заполнить акт выполненных работ: стороны, услуги, сумма, НДС, дата. Пошагово и со ссылкой на генератор PDF.",
+    "Что писать в акте, чтобы его приняли: стороны, услуги нормальным языком, сумма, НДС и подписи.",
   keywords:
     "как заполнить акт выполненных работ, акт оказанных услуг ИП, акт выполненных работ образец",
   alternates: { canonical: "https://biznes-ip.ru/articles/kak-zapolnit-akt/" },
   openGraph: {
     title: "Как заполнить акт выполненных работ",
-    description: "Пошагово: стороны, позиции, сумма и PDF без Word.",
+    description: "Без нумерации «как в методичке» — что реально спрашивают.",
     url: "https://biznes-ip.ru/articles/kak-zapolnit-akt/",
     locale: "ru_RU",
     type: "article",
@@ -27,82 +27,79 @@ export default function KakZapolnitAktArticlePage() {
         · 19 июля 2026
       </p>
       <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-        Как заполнить акт выполненных работ ИП
+        Как заполнить акт выполненных работ
       </h1>
       <p className="mt-4 text-lg text-slate-600">
-        Акт подтверждает, что услуга оказана. Его обычно просят после оплаты или вместе с закрытием
-        месяца. Ниже — что указать, чтобы документ приняли.
+        Акт — это «мы сошлись, что работа сделана». Его просят в конце месяца, после оплаты или
+        когда бухгалтерия клиента закрывает период. Ниже — что туда кладут, чтобы не гоняли на
+        правки.
       </p>
 
       <div className="mt-8 space-y-6 text-slate-700 leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">1. Стороны</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Кто кому</h2>
           <p className="mt-2">
-            Исполнитель — вы (ИП): ФИО/название, ИНН, адрес. Заказчик — клиент с теми же полями.
-            Лучше совпадать со счётом и договором, если они уже были.
+            Вы — исполнитель: ФИО/название, ИНН, адрес. Клиент — заказчик с теми же полями. Если
+            уже был счёт или договор, копируйте реквизиты один в один. Расхождения в ИНН —
+            классика возвратов документа.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">2. Номер и дата</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Номер и дата</h2>
           <p className="mt-2">
-            Номер удобно вести по порядку (как у счетов). Дата — день, когда работы фактически
-            приняты, или дата подписания по согласованию сторон.
+            Номер ведите как у счетов — по порядку, без магии. Дата — когда работы приняли или
+            когда подписали, как договорились. Не обязательно ставить «вчера», если по факту
+            сдавали сегодня.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">3. Что сделано</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Что именно сделали</h2>
           <p className="mt-2">
-            Перечислите услуги: наименование, единица, количество, цена, сумма. Формулировки должны
-            быть понятны бухгалтерии клиента — без внутренних жаргонизмов.
+            Название, единица, количество, цена, сумма. Пишите так, чтобы человек со стороны понял:
+            не «работы по ТЗ», а «вёрстка главной страницы» или «консультация 4 часа». Внутренний
+            сленг оставляйте в чате, не в акте.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">4. Итого и НДС</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Итого и НДС</h2>
           <p className="mt-2">
-            Укажите итоговую сумму и пометку про НДС («Без НДС» или сумма налога). Если ставка
-            нужна — сначала посчитайте в{" "}
+            Сумма внизу и честная пометка: «Без НДС» или сколько налога. Если ставка нужна —
+            сначала{" "}
             <Link href="/nds/" className="text-blue-600 hover:underline">
-              калькуляторе НДС
+              посчитайте
             </Link>
-            .
+            , потом вставляйте.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">5. Подписи</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Подписи</h2>
           <p className="mt-2">
-            Обе стороны подписывают акт. Если подписывает не сам ИП — может понадобиться{" "}
+            Обе стороны. Если от вашего имени подписывает кто-то другой — чаще нужна{" "}
             <Link href="/doverennost/" className="text-blue-600 hover:underline">
               доверенность
             </Link>
-            .
+            , иначе клиент может завернуть.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Связка со счётом</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Счёт уже был?</h2>
           <p className="mt-2">
-            Часто сначала выставляют счёт, потом акт. Чем отличаются документы — в статье{" "}
+            Нормальная связка: сначала счёт, потом акт. Зачем оба — в{" "}
             <Link href="/articles/schet-i-akt/" className="text-blue-600 hover:underline">
-              «Счёт и акт»
+              заметке про счёт и акт
             </Link>
-            . В СчётИП данные со счёта можно перенести в акт одной кнопкой.
+            . На СчётИП данные со счёта можно перекинуть в акт, чтобы не набирать дважды —{" "}
+            <Link href="/create/?type=akt" className="text-blue-600 hover:underline">
+              форма акта
+            </Link>
+            .
           </p>
         </section>
-
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="font-medium text-slate-900">Сделать акт за пару минут</p>
-          <p className="mt-2 text-sm">
-            Откройте{" "}
-            <Link href="/create/?type=akt" className="font-medium text-blue-700 hover:underline">
-              генератор акта СчётИП
-            </Link>
-            : заполните поля и скачайте PDF. Бесплатно, без регистрации.
-          </p>
-        </div>
       </div>
     </article>
   );

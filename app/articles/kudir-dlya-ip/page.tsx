@@ -4,12 +4,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "КУДиР для ИП на УСН: зачем нужна и что писать",
   description:
-    "КУДиР для ИП на УСН простыми словами: зачем вести книгу учёта доходов и расходов, что фиксировать и как не запутаться в суммах.",
+    "КУДиР — не страшная аббревиатура, а журнал денег за год. Что туда заносят и почему счёт ≠ доход.",
   keywords: "КУДиР для ИП, книга учёта доходов и расходов УСН, как вести КУДиР",
   alternates: { canonical: "https://biznes-ip.ru/articles/kudir-dlya-ip/" },
   openGraph: {
     title: "КУДиР для ИП на УСН",
-    description: "Зачем нужна книга учёта и что в неё писать.",
+    description: "Зачем книга учёта и что в неё писать, без канцелярита.",
     url: "https://biznes-ip.ru/articles/kudir-dlya-ip/",
     locale: "ru_RU",
     type: "article",
@@ -29,52 +29,53 @@ export default function KudirDlyaIpArticlePage() {
         КУДиР для ИП на УСН: зачем нужна и что писать
       </h1>
       <p className="mt-4 text-lg text-slate-600">
-        КУДиР — книга учёта доходов и расходов. На упрощёнке она нужна, чтобы считать налог и
-        подтверждать цифры при проверке.
+        Книга учёта доходов и расходов. На упрощёнке по ней считают налог и, если что, показывают
+        проверяющим, откуда цифры. Звучит официально — по сути это аккуратный дневник денег.
       </p>
 
       <div className="mt-8 space-y-6 text-slate-700 leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Простыми словами</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Что это на пальцах</h2>
           <p className="mt-2">
-            Это журнал операций за год: когда пришли деньги, сколько, от кого (и расходы — если УСН
-            15%). Форму утверждает ФНС; вести можно в Excel, сервисе или на бумаге по правилам.
+            Журнал за год: когда пришли деньги, сколько, откуда. На УСН 15% рядом ещё расходы. Форму
+            задаёт ФНС, а вести можно в Excel, сервисе или на бумаге — как вам спокойнее, лишь бы
+            по правилам.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Что обычно заносят</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li>дату и сумму поступления на расчётный счёт / в кассу;</li>
-            <li>основание (счёт, договор, акт — по смыслу операции);</li>
-            <li>на УСН 15% — подтверждаемые расходы;</li>
-            <li>итоги за квартал и год для авансов и декларации.</li>
-          </ul>
+          <h2 className="text-xl font-semibold text-slate-900">Что обычно туда попадает</h2>
+          <p className="mt-2">
+            Дата и сумма на счёт или в кассу. Основание — счёт, договор, акт, платёжка, смотря что
+            есть. На «доходы минус расходы» — подтверждённые траты. Раз в квартал и в конце года
+            удобно сводить итоги под авансы и декларацию.
+          </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Связь со счетами и актами</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Зачем хранить счета и акты</h2>
           <p className="mt-2">
-            Для учёта удобно хранить цепочку:{" "}
+            Цепочка{" "}
             <Link href="/create/?type=schet" className="text-blue-600 hover:underline">
               счёт
             </Link>{" "}
             → оплата →{" "}
             <Link href="/create/?type=akt" className="text-blue-600 hover:underline">
               акт
-            </Link>
-            . Тогда проще восстановить, откуда взялась сумма в КУДиР.
+            </Link>{" "}
+            потом спасает, когда в книге висит сумма, а вы не помните, откуда она. Не обязательно
+            быть идеальным архивариусом — достаточно не выбрасывать PDF.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Налог и сроки</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Налоги и календарь</h2>
           <p className="mt-2">
-            По итогам кварталов платят авансы УСН, по году — налог и декларацию. Ориентиры дат — в{" "}
+            Кварталы — авансы, год — налог и декларация. Даты удобно смотреть в{" "}
             <Link href="/sroki/" className="text-blue-600 hover:underline">
-              календаре сроков ИП
+              календаре сроков
             </Link>
-            . Сумму налога оцените в{" "}
+            , а сколько примерно откладывать — в{" "}
             <Link href="/usn/" className="text-blue-600 hover:underline">
               калькуляторе УСН
             </Link>
@@ -83,27 +84,21 @@ export default function KudirDlyaIpArticlePage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900">Частая ошибка</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Частая путаница</h2>
           <p className="mt-2">
-            Путать «выставленный счёт» и «оплату». В доходы УСН обычно попадает факт оплаты (кассовый
-            метод), а не только выписанный документ. Уточняйте правила под свой случай.
+            Выписали счёт — ещё не доход. На УСН обычно смотрят на оплату (кассовый метод), а не на
+            красивый PDF. Исключения бывают, поэтому свой случай лучше один раз уточнить, чем
+            править книгу задним числом.
           </p>
         </section>
 
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <p className="font-medium text-slate-900">Посчитать налог УСН</p>
-          <p className="mt-2 text-sm">
-            Откройте{" "}
-            <Link href="/usn/" className="font-medium text-blue-700 hover:underline">
-              калькулятор УСН
-            </Link>{" "}
-            и{" "}
-            <Link href="/vznosy/" className="font-medium text-blue-700 hover:underline">
-              взносы ИП
-            </Link>
-            — ориентир, сколько откладывать. Бесплатно.
-          </p>
-        </div>
+        <p className="text-sm text-slate-500">
+          Взносы «за себя» тоже влияют на картину — их можно прикинуть в{" "}
+          <Link href="/vznosy/" className="text-blue-600 hover:underline">
+            калькуляторе взносов
+          </Link>
+          .
+        </p>
       </div>
     </article>
   );

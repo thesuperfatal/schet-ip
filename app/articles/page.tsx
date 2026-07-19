@@ -7,7 +7,7 @@ import { RSYA_BLOCK_IDS } from "@/lib/rsya";
 export const metadata: Metadata = {
   title: "Статьи для ИП — счета, УСН, НДС",
   description:
-    "Статьи для ИП: акт, КУДиР, закрывающие документы, назначение платежа, УПД, патент или УСН, НДС.",
+    "Заметки для ИП: акты, КУДиР, закрывающие документы, назначение платежа, УПД, налоги — живым языком.",
   alternates: { canonical: "https://biznes-ip.ru/articles/" },
 };
 
