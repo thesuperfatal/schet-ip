@@ -15,6 +15,7 @@ import {
   readDealParams,
 } from "@/lib/dealFlow";
 import DealNextSteps from "@/components/DealNextSteps";
+import DataBackup from "@/components/DataBackup";
 import DocHistory from "@/components/DocHistory";
 import {
   clearDocHistory,
@@ -365,6 +366,15 @@ export default function CreatePageClient() {
               <FormField label="Расчётный счёт" value={seller.account} onChange={(v) => setSeller({ ...seller, account: v })} hint="20 цифр, начинается с 40802 у многих ИП" />
               <FormField label="Телефон" value={seller.phone} onChange={(v) => setSeller({ ...seller, phone: v })} />
             </div>
+            <DataBackup
+              seller={seller}
+              buyers={buyers}
+              onImported={(nextSeller, nextBuyers) => {
+                if (nextSeller) setSeller(nextSeller);
+                setBuyers(nextBuyers);
+              }}
+              onMessage={setMessage}
+            />
           </section>
 
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -590,7 +600,9 @@ export default function CreatePageClient() {
                   message.includes("подставлен") ||
                   message.includes("удалён") ||
                   message.includes("номер") ||
-                  message.includes("Шаблон")
+                  message.includes("Шаблон") ||
+                  message.includes("скачан") ||
+                  message.includes("загружены")
                     ? "text-green-600"
                     : "text-red-600"
                 }`}
