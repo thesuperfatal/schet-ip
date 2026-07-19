@@ -35,4 +35,5 @@ alwaysApply: true
 - «?» у полей (`Hint` / `FormField`).
 - БИК → банк и корр. счёт (`BikBankFields` + `lib/bikLookup.ts`).
 - «Заполнить пример» на счёте/акте; цепочка КП → договор → счёт → акт (`lib/dealFlow.ts`, блок `DealNextSteps`).
+- История счетов/актов в браузере после скачивания PDF (`lib/docHistory.ts`, блок `DocHistory`).
 - Главная: группы инструментов + «Как это работает»; каталог `/tools/`.

@@ -10,6 +10,14 @@ import { amountToWords } from "@/lib/amountToWords";
 import { exampleBuyer, exampleItems, exampleSeller } from "@/lib/examples";
 import { buildDealUrl, dealFromItems, readDealParams } from "@/lib/dealFlow";
 import DealNextSteps from "@/components/DealNextSteps";
+import DocHistory from "@/components/DocHistory";
+import {
+  clearDocHistory,
+  loadDocHistory,
+  removeDocFromHistory,
+  saveDocToHistory,
+  type DocHistoryEntry,
+} from "@/lib/docHistory";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import {
   emptyBuyer,
@@ -47,9 +55,11 @@ export default function CreatePageClient() {
   const [message, setMessage] = useState("");
   const [fromNds, setFromNds] = useState(false);
   const [fromSource, setFromSource] = useState("");
+  const [history, setHistory] = useState<DocHistoryEntry[]>([]);
 
   useEffect(() => {
     setType(getTypeFromUrl());
+    setHistory(loadDocHistory());
     const saved = loadSeller();
     if (saved) setSeller(saved);
 
@@ -100,6 +110,28 @@ export default function CreatePageClient() {
     setDate(todayIso());
     setVatNote("Без НДС.");
     setMessage("Подставлен пример — можете править и скачать PDF");
+  }
+
+  function openFromHistory(entry: DocHistoryEntry) {
+    const d = entry.data;
+    setType(d.type);
+    setSeller(d.seller);
+    setBuyer(d.buyer);
+    setItems(d.items.length > 0 ? d.items : [emptyItem()]);
+    setNumber(d.number || "1");
+    setDate(d.date || todayIso());
+    setVatNote(d.vatNote || "Без НДС.");
+    setFromNds(false);
+    setFromSource("");
+    setMessage(
+      d.type === "akt"
+        ? "Открыт акт из истории — можно править и скачать снова"
+        : "Открыт счёт из истории — можно править и скачать снова"
+    );
+    const url = new URL(window.location.href);
+    url.searchParams.set("type", d.type);
+    window.history.replaceState({}, "", url.toString());
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const documentData: DocumentData = {
@@ -154,7 +186,8 @@ export default function CreatePageClient() {
           ? `schet-${number}-${date}.pdf`
           : `akt-${number}-${date}.pdf`;
       await downloadPdfFromElement(pdfRef.current, filename);
-      setMessage("PDF скачан успешно!");
+      setHistory(saveDocToHistory(documentData));
+      setMessage("PDF скачан успешно! Документ сохранён в «Недавние».");
     } catch {
       setMessage("Ошибка при создании PDF. Попробуйте ещё раз.");
     } finally {
@@ -181,6 +214,17 @@ export default function CreatePageClient() {
         </button>
         <p className="text-sm text-slate-500">Чтобы сразу увидеть, как выглядит готовый документ</p>
       </div>
+
+      <DocHistory
+        entries={history}
+        onOpen={openFromHistory}
+        onRemove={(id) => setHistory(removeDocFromHistory(id))}
+        onClear={() => {
+          clearDocHistory();
+          setHistory([]);
+          setMessage("История документов очищена");
+        }}
+      />
 
       {fromNds && (
         <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-slate-700">
@@ -339,7 +383,16 @@ export default function CreatePageClient() {
             </button>
 
             {message && (
-              <p className={`mt-3 text-sm ${message.includes("успешно") ? "text-green-600" : "text-red-600"}`}>
+              <p
+                className={`mt-3 text-sm ${
+                  message.includes("успешно") ||
+                  message.includes("Открыт") ||
+                  message.includes("пример") ||
+                  message.includes("очищена")
+                    ? "text-green-600"
+                    : "text-red-600"
+                }`}
+              >
                 {message}
               </p>
             )}
