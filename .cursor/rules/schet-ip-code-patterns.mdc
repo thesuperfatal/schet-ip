@@ -1,0 +1,26 @@
+---
+description: Паттерны кода PDF-документов и калькуляторов
+globs: "{app,components,lib}/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Документы PDF и калькуляторы
+
+## PDF (счёт, акт, договор, накладная, КП)
+
+- Форма-клиент + `*Preview` + скрытый блок для `downloadPdfFromElement` (`lib/generatePdf.ts`).
+- Реквизиты ИП: `loadSeller` / `saveSeller` из `lib/storage.ts`.
+- ID позиций: `emptyItem()` из `lib/types.ts` (без `crypto.randomUUID` как единственного пути — нужен HTTP).
+- Галочка «Проверять заполнение полей» по умолчанию включена.
+
+## Калькуляторы
+
+- Логика в `lib/*Calculate.ts` или рядом; UI — client component.
+- Константы года (УСН/взносы/НДС) держать в одном месте и помечать как ориентир.
+- Ссылки между инструментами (УСН ↔ взносы ↔ НДС ↔ счёт) сохранять.
+
+## UI-хелперы
+
+- `components/Hint.tsx` — подсказка «?»
+- `components/FormField.tsx` — поле + hint
+- `components/NavLink.tsx` — пункт меню + tip
