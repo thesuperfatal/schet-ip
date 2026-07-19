@@ -5,7 +5,7 @@ import { ARTICLES } from "@/lib/articles";
 export const metadata: Metadata = {
   title: "Статьи для ИП — счета, УСН, НДС",
   description:
-    "Статьи для ИП: назначение платежа, УПД, патент или УСН, как выставить счёт, НДС на упрощёнке.",
+    "Статьи для ИП: акт, КУДиР, закрывающие документы, назначение платежа, УПД, патент или УСН, НДС.",
   alternates: { canonical: "https://biznes-ip.ru/articles/" },
 };
 

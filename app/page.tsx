@@ -129,6 +129,9 @@ export default function Home() {
         </div>
         <ul className="space-y-3">
           {[
+            ["/articles/kak-zapolnit-akt/", "Как заполнить акт выполненных работ"],
+            ["/articles/kudir-dlya-ip/", "КУДиР для ИП на УСН"],
+            ["/articles/zakryvayushchie-dokumenty/", "Закрывающие документы для ИП"],
             ["/articles/naznachenie-platezha/", "Назначение платежа по счёту"],
             ["/articles/chto-takoe-upd/", "Что такое УПД"],
             ["/articles/patent-ili-usn/", "Патент или УСН: что выбрать"],
