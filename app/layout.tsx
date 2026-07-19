@@ -97,6 +97,13 @@ export default function RootLayout({
               <Link href="/contacts/" className="hover:text-blue-600">
                 Контакты
               </Link>
+              <a
+                href="https://memory.biznes-ip.ru"
+                className="hover:text-blue-600"
+                rel="noopener noreferrer"
+              >
+                Память10
+              </a>
             </nav>
           </div>
         </footer>
