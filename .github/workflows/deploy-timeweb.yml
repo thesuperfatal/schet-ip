@@ -33,3 +33,39 @@ jobs:
           local-dir: ./out/
           server-dir: ${{ secrets.FTP_SERVER_DIR || '/biznes-ip.ru/public_html/' }}
           dangerous-clean-slate: false
+
+  deploy-memory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Память10
+        uses: actions/checkout@v4
+        with:
+          repository: thesuperfatal/pamyat10
+          path: memory
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: memory/package-lock.json
+
+      - name: Install dependencies
+        working-directory: memory
+        run: npm ci
+
+      - name: Build Память10 under /memory
+        working-directory: memory
+        env:
+          NEXT_PUBLIC_BASE_PATH: /memory
+        run: npm run build
+
+      - name: Deploy Память10 to /memory/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./memory/out/
+          server-dir: /biznes-ip.ru/public_html/memory/
+          dangerous-clean-slate: false
