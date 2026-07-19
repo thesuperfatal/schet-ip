@@ -34,20 +34,57 @@ export default function Home() {
             Создать счёт
           </Link>
           <Link
-            href="/otkryl-ip/"
+            href="/dlya-kogo/"
             className="w-full rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-800 hover:bg-slate-50 sm:w-auto"
           >
-            Я только открыл ИП
+            Выбрать сценарий
           </Link>
         </div>
 
         <p className="mt-6 text-sm text-slate-500">
-          Не знаете, что выбрать? Смотрите{" "}
-          <Link href="/faq/" className="text-blue-600 hover:underline">
-            частые вопросы
+          Только открыли ИП?{" "}
+          <Link href="/otkryl-ip/" className="text-blue-600 hover:underline">
+            Чек-лист первых шагов
           </Link>
-          . Наведите на пункты меню сверху — там короткие подсказки.
+          . Полный список — в{" "}
+          <Link href="/tools/" className="text-blue-600 hover:underline">
+            каталоге инструментов
+          </Link>
+          .
         </p>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-12">
+        <h2 className="mb-6 text-center text-2xl font-bold text-slate-900">С чего начать</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              href: "/dlya-kogo/#services",
+              title: "Услуги и фриланс",
+              text: "КП → договор → счёт → акт",
+            },
+            {
+              href: "/dlya-kogo/#trade",
+              title: "Товар и отгрузка",
+              text: "Счёт, накладная / УПД",
+            },
+            {
+              href: "/dlya-kogo/#newbie",
+              title: "Только открыл ИП",
+              text: "Налоги, взносы, первый счёт",
+            },
+          ].map((card) => (
+            <Link
+              key={card.href}
+              href={card.href}
+              className="rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:border-blue-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-semibold text-slate-900">{card.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{card.text}</p>
+              <p className="mt-3 text-sm font-medium text-blue-600">Открыть →</p>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-12">
@@ -113,8 +150,12 @@ export default function Home() {
         <p className="mt-3">
           СчётИП — для индивидуальных предпринимателей, которым нужно быстро выставить счёт,
           оформить акт или прикинуть налоги. Без бухгалтера «на каждый клик» и без регистрации.{" "}
+          <Link href="/dlya-kogo/" className="text-blue-600 hover:underline">
+            Выбрать сценарий
+          </Link>
+          {" · "}
           <Link href="/about/" className="text-blue-600 hover:underline">
-            Подробнее о проекте
+            О проекте
           </Link>
           .
         </p>

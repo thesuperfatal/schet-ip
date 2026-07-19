@@ -28,7 +28,8 @@ export const TOOL_CATEGORIES: Record<
   },
 };
 
-/** Единый каталог инструментов сайта (главная, меню, правила проекта). */
+/** Единый каталог инструментов сайта (главная, меню, правила проекта).
+ * inNav: только ядро меню; остальное — через /tools/ и главную. */
 export const SITE_TOOLS: SiteTool[] = [
   {
     href: "/create/?type=schet",
@@ -64,7 +65,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Товарная накладная или УПД",
     category: "documents",
     navLabel: "Накладная",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/kp/",
@@ -73,7 +74,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Коммерческое предложение",
     category: "documents",
     navLabel: "КП",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/doverennost/",
@@ -82,7 +83,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Доверенность от ИП в PDF",
     category: "documents",
     navLabel: "Доверенность",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/pretenziya/",
@@ -91,7 +92,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Претензия о просрочке оплаты",
     category: "documents",
     navLabel: "Претензия",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/rekvizity/",
@@ -100,7 +101,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Реквизиты ИП в PDF",
     category: "documents",
     navLabel: "Реквизиты",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/usn/",
@@ -118,7 +119,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Сравнить патент и УСН",
     category: "calculators",
     navLabel: "Патент",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/vznosy/",
@@ -127,7 +128,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Страховые взносы ИП за себя",
     category: "calculators",
     navLabel: "Взносы",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/nds/",
@@ -145,7 +146,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Сумма прописью для документов",
     category: "calculators",
     navLabel: "Прописью",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/srok-oplaty/",
@@ -154,7 +155,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Срок оплаты и расчёт пеней",
     category: "calculators",
     navLabel: "Срок/пени",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/sroki/",
@@ -163,7 +164,7 @@ export const SITE_TOOLS: SiteTool[] = [
     tip: "Календарь налоговых сроков ИП",
     category: "calculators",
     navLabel: "Календарь",
-    inNav: true,
+    inNav: false,
   },
   {
     href: "/tools/",
@@ -171,8 +172,8 @@ export const SITE_TOOLS: SiteTool[] = [
     short: "Полный каталог документов и калькуляторов.",
     tip: "Каталог всех инструментов СчётИП",
     category: "guides",
-    navLabel: "Все",
-    inNav: false,
+    navLabel: "Ещё",
+    inNav: true,
   },
   {
     href: "/otkryl-ip/",

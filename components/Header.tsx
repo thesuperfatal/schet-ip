@@ -87,6 +87,18 @@ export default function Header() {
             ))}
             <li>
               <Link
+                href="/dlya-kogo/"
+                onClick={() => setOpen(false)}
+                className="block rounded-xl px-3 py-2.5 hover:bg-blue-50"
+              >
+                <span className="font-medium text-slate-900">Для кого</span>
+                <span className="mt-0.5 block text-xs text-slate-500">
+                  Услуги, товар или только открыл ИП
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/faq/"
                 onClick={() => setOpen(false)}
                 className="block rounded-xl px-3 py-2.5 hover:bg-blue-50"
