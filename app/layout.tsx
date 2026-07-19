@@ -51,6 +51,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  other: {
+    "verify-admitad": "98472b7307",
+  },
 };
 
 export default function RootLayout({
