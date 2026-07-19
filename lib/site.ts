@@ -8,6 +8,7 @@ export const SITE_PAGES = [
   { path: "/dogovor/", title: "Договор оказания услуг", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/nakladnaya/", title: "Товарная накладная / УПД", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/kp/", title: "Коммерческое предложение", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/doverennost/", title: "Доверенность", priority: 0.85, changeFrequency: "monthly" as const },
   { path: "/usn/", title: "Калькулятор УСН", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/patent-usn/", title: "Патент или УСН", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/vznosy/", title: "Калькулятор взносов ИП", priority: 0.9, changeFrequency: "monthly" as const },

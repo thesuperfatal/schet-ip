@@ -16,7 +16,7 @@ alwaysApply: true
 
 ## Каталог (не удалять без замены)
 
-Документы PDF: счёт, акт, договор `/dogovor`, накладная/УПД `/nakladnaya`, КП `/kp`.  
+Документы PDF: счёт, акт, договор `/dogovor`, накладная/УПД `/nakladnaya`, КП `/kp`, доверенность `/doverennost`.
 Калькуляторы: `/usn`, `/patent-usn`, `/vznosy`, `/nds`, `/summa-propisyu`, `/srok-oplaty`, `/sroki`.
 Гайды: `/otkryl-ip`, `/faq`, статьи, `/about`, `/privacy`, `/terms`, `/contacts`.
 

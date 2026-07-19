@@ -76,6 +76,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: true,
   },
   {
+    href: "/doverennost/",
+    title: "Доверенность",
+    short: "Уполномочить представителя подписывать документы.",
+    tip: "Доверенность от ИП в PDF",
+    category: "documents",
+    navLabel: "Доверенность",
+    inNav: true,
+  },
+  {
     href: "/usn/",
     title: "Калькулятор УСН",
     short: "6% или 15%, взносы, сколько откладывать.",
