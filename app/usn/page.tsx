@@ -46,6 +46,10 @@ export default function UsnPage() {
           <Link href="/patent-usn/" className="text-blue-600 hover:underline">
             патент или УСН
           </Link>
+          . Сроки уплаты:{" "}
+          <Link href="/sroki/" className="text-blue-600 hover:underline">
+            календарь ИП
+          </Link>
           . Отдельно можно посчитать только взносы:{" "}
           <Link href="/vznosy/" className="text-blue-600 hover:underline">
             калькулятор страховых взносов ИП

@@ -14,6 +14,7 @@ export const SITE_PAGES = [
   { path: "/nds/", title: "Калькулятор НДС", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/summa-propisyu/", title: "Сумма прописью", priority: 0.85, changeFrequency: "monthly" as const },
   { path: "/srok-oplaty/", title: "Срок оплаты и пени", priority: 0.85, changeFrequency: "monthly" as const },
+  { path: "/sroki/", title: "Календарь сроков ИП", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/otkryl-ip/", title: "Чек-лист «Открыл ИП»", priority: 0.85, changeFrequency: "monthly" as const },
   { path: "/articles/", title: "Статьи", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/articles/naznachenie-platezha/", title: "Назначение платежа", priority: 0.75, changeFrequency: "monthly" as const },

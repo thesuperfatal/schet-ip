@@ -130,6 +130,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: true,
   },
   {
+    href: "/sroki/",
+    title: "Календарь сроков ИП",
+    short: "Авансы УСН, взносы, декларация.",
+    tip: "Календарь налоговых сроков ИП",
+    category: "calculators",
+    navLabel: "Календарь",
+    inNav: true,
+  },
+  {
     href: "/tools/",
     title: "Все инструменты",
     short: "Полный каталог документов и калькуляторов.",
