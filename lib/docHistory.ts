@@ -77,3 +77,31 @@ export function historyLabel(entry: DocHistoryEntry): string {
 export function historyTotal(entry: DocHistoryEntry): number {
   return entry.data.items.reduce((sum, item) => sum + item.qty * item.price, 0);
 }
+
+/**
+ * Следующий номер документа того же типа по истории в браузере.
+ * Учитывает префикс/суффикс: «12» → «13», «С-5» → «С-6».
+ */
+export function suggestNextNumber(
+  type: DocumentData["type"],
+  history: DocHistoryEntry[] = loadDocHistory()
+): string {
+  let best = 0;
+  let prefix = "";
+  let suffix = "";
+
+  for (const entry of history) {
+    if (entry.data.type !== type) continue;
+    const raw = entry.data.number?.trim() || "";
+    const m = /^(.*?)(\d+)(\D*)$/.exec(raw);
+    if (!m) continue;
+    const n = Number(m[2]);
+    if (!Number.isFinite(n) || n < best) continue;
+    best = n;
+    prefix = m[1];
+    suffix = m[3];
+  }
+
+  if (best <= 0) return "1";
+  return `${prefix}${best + 1}${suffix}`;
+}

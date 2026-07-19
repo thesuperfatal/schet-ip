@@ -21,10 +21,12 @@ import {
   loadDocHistory,
   removeDocFromHistory,
   saveDocToHistory,
+  suggestNextNumber,
   type DocHistoryEntry,
 } from "@/lib/docHistory";
 import { loadBuyers, removeBuyer, saveBuyer } from "@/lib/buyers";
 import { copyText, paymentPurpose } from "@/lib/paymentPurpose";
+import { SERVICE_TEMPLATES } from "@/lib/serviceTemplates";
 import { SITE_URL } from "@/lib/site";
 import { loadSeller, saveSeller } from "@/lib/storage";
 import {
@@ -67,8 +69,10 @@ export default function CreatePageClient() {
   const [buyers, setBuyers] = useState<BuyerInfo[]>([]);
 
   useEffect(() => {
-    setType(getTypeFromUrl());
-    setHistory(loadDocHistory());
+    const docType = getTypeFromUrl();
+    setType(docType);
+    const hist = loadDocHistory();
+    setHistory(hist);
     setBuyers(loadBuyers());
     const saved = loadSeller();
     if (saved) setSeller(saved);
@@ -78,7 +82,11 @@ export default function CreatePageClient() {
     const from = deal.from || params.get("from") || "";
 
     if (deal.vat) setVatNote(deal.vat);
-    if (deal.number) setNumber(deal.number);
+    if (deal.number) {
+      setNumber(deal.number);
+    } else {
+      setNumber(suggestNextNumber(docType, hist));
+    }
     if (deal.date) setDate(deal.date);
 
     if (deal.buyer || deal.buyerInn || deal.buyerKpp || deal.buyerAddress) {
@@ -239,8 +247,10 @@ export default function CreatePageClient() {
           ? `schet-${number}-${date}.pdf`
           : `akt-${number}-${date}.pdf`;
       await downloadPdfFromElement(pdfRef.current, filename);
-      setHistory(saveDocToHistory(documentData));
-      setMessage("PDF скачан успешно! Документ и покупатель сохранены.");
+      const nextHist = saveDocToHistory(documentData);
+      setHistory(nextHist);
+      setNumber(suggestNextNumber(type, nextHist));
+      setMessage("PDF скачан успешно! Документ и покупатель сохранены. Номер увеличен.");
     } catch {
       setMessage("Ошибка при создании PDF. Попробуйте ещё раз.");
     } finally {
@@ -416,7 +426,24 @@ export default function CreatePageClient() {
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold">Документ</h2>
             <div className="mb-4 grid gap-3 sm:grid-cols-2">
-              <FormField label="Номер" value={number} onChange={setNumber} hint="Свой порядковый номер" />
+              <div>
+                <FormField
+                  label="Номер"
+                  value={number}
+                  onChange={setNumber}
+                  hint="Подставляется следующий по истории в этом браузере"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNumber(suggestNextNumber(type, history));
+                    setMessage("Подставлен следующий номер по истории");
+                  }}
+                  className="mt-1 text-xs text-blue-600 hover:underline"
+                >
+                  Взять следующий номер
+                </button>
+              </div>
               <FormField label="Дата" value={date} onChange={setDate} type="date" />
             </div>
 
@@ -450,6 +477,38 @@ export default function CreatePageClient() {
             >
               + Добавить позицию
             </button>
+
+            <div className="mt-3">
+              <p className="mb-1.5 text-xs text-slate-500">Быстрый шаблон в первую позицию:</p>
+              <div className="flex flex-wrap gap-2">
+                {SERVICE_TEMPLATES.map((tpl) => (
+                  <button
+                    key={tpl.label}
+                    type="button"
+                    onClick={() => {
+                      setItems((prev) => {
+                        const rest = prev.slice(1);
+                        const first = prev[0] ?? emptyItem();
+                        return [
+                          {
+                            ...first,
+                            name: tpl.name,
+                            unit: tpl.unit,
+                            qty: tpl.qty,
+                            price: tpl.price,
+                          },
+                          ...rest,
+                        ];
+                      });
+                      setMessage(`Шаблон «${tpl.label}» подставлен — цену можно изменить`);
+                    }}
+                    className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-700 hover:border-blue-300 hover:text-blue-700"
+                  >
+                    {tpl.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <div className="mt-4">
               <FormField
@@ -529,7 +588,9 @@ export default function CreatePageClient() {
                   message.includes("очищена") ||
                   message.includes("скопирован") ||
                   message.includes("подставлен") ||
-                  message.includes("удалён")
+                  message.includes("удалён") ||
+                  message.includes("номер") ||
+                  message.includes("Шаблон")
                     ? "text-green-600"
                     : "text-red-600"
                 }`}
