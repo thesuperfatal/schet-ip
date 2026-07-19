@@ -18,6 +18,7 @@ export const SITE_PAGES = [
   { path: "/srok-oplaty/", title: "Срок оплаты и пени", priority: 0.85, changeFrequency: "monthly" as const },
   { path: "/sroki/", title: "Календарь сроков ИП", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/otkryl-ip/", title: "Чек-лист «Открыл ИП»", priority: 0.85, changeFrequency: "monthly" as const },
+  { path: "/dlya-kogo/", title: "Для кого СчётИП", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/articles/", title: "Статьи", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/articles/kak-zapolnit-akt/", title: "Как заполнить акт", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/articles/kudir-dlya-ip/", title: "КУДиР для ИП", priority: 0.75, changeFrequency: "monthly" as const },

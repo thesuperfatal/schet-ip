@@ -175,6 +175,15 @@ export const SITE_TOOLS: SiteTool[] = [
     inNav: false,
   },
   {
+    href: "/dlya-kogo/",
+    title: "Для кого СчётИП",
+    short: "Сценарии: услуги, товар, новичок.",
+    tip: "Выбрать сценарий под себя",
+    category: "guides",
+    navLabel: "Для кого",
+    inNav: false,
+  },
+  {
     href: "/faq/",
     title: "Частые вопросы",
     short: "Короткие ответы про сервис и документы.",

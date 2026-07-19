@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AdSlot from "@/components/AdSlot";
+import { RSYA_BLOCK_IDS } from "@/lib/rsya";
 
 export const metadata: Metadata = {
   title: "Частые вопросы — СчётИП",
@@ -90,6 +92,8 @@ export default function FaqPage() {
           Контакты
         </Link>
       </div>
+
+      <AdSlot blockId={RSYA_BLOCK_IDS.faqBottom} />
 
       <script
         type="application/ld+json"

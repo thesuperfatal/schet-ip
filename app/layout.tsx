@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
+import RsyaLoader from "@/components/RsyaLoader";
 import YandexMetrika from "@/components/YandexMetrika";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -62,6 +63,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <JsonLd />
         <YandexMetrika />
+        <RsyaLoader />
         <Header />
         <main className="flex-1">{children}</main>
         <footer className="border-t border-slate-200 bg-white py-6 text-sm text-slate-500 print:hidden">
@@ -79,6 +81,9 @@ export default function RootLayout({
               </Link>
               <Link href="/otkryl-ip/" className="hover:text-blue-600">
                 Открыл ИП
+              </Link>
+              <Link href="/dlya-kogo/" className="hover:text-blue-600">
+                Для кого
               </Link>
               <Link href="/about/" className="hover:text-blue-600">
                 О проекте

@@ -18,7 +18,7 @@ alwaysApply: true
 
 Документы PDF: счёт, акт, договор `/dogovor`, накладная/УПД `/nakladnaya`, КП `/kp`, доверенность `/doverennost`, претензия `/pretenziya`.
 Калькуляторы: `/usn`, `/patent-usn`, `/vznosy`, `/nds`, `/summa-propisyu`, `/srok-oplaty`, `/sroki`.
-Гайды: `/otkryl-ip`, `/faq`, статьи, `/about`, `/privacy`, `/terms`, `/contacts`.
+Гайды: `/otkryl-ip`, `/dlya-kogo`, `/faq`, статьи, `/about`, `/privacy`, `/terms`, `/contacts`.
 
 Источник правды по списку инструментов: `lib/tools.ts` (+ `lib/site.ts` для sitemap).
 

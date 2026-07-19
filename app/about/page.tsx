@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AdSlot from "@/components/AdSlot";
+import { RSYA_BLOCK_IDS } from "@/lib/rsya";
 
 export const metadata: Metadata = {
   title: "О проекте СчётИП — бесплатные инструменты для ИП",
@@ -132,6 +134,8 @@ export default function AboutPage() {
           Материалы и калькуляторы носят справочный характер и не заменяют консультацию бухгалтера
           или юриста.
         </p>
+
+        <AdSlot blockId={RSYA_BLOCK_IDS.aboutBottom} />
       </div>
     </article>
   );

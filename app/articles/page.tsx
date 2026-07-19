@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AdSlot from "@/components/AdSlot";
 import { ARTICLES } from "@/lib/articles";
+import { RSYA_BLOCK_IDS } from "@/lib/rsya";
 
 export const metadata: Metadata = {
   title: "Статьи для ИП — счета, УСН, НДС",
@@ -33,6 +35,8 @@ export default function ArticlesIndexPage() {
           </li>
         ))}
       </ul>
+
+      <AdSlot blockId={RSYA_BLOCK_IDS.articlesBottom} />
     </div>
   );
 }
