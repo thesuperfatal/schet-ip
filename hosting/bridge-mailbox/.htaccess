@@ -1,0 +1,36 @@
+# Почтовый ящик моста 1С. Не в меню сайта, не в sitemap.
+# Basic Auth по желанию — проще задать BRIDGE_BASIC_USER в .env (см. .env.example).
+
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<Files ".env">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+  </IfModule>
+</Files>
+
+<Files ".htpasswd">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+  </IfModule>
+</Files>
+
+# Раскомментировать, если нужен Apache Basic Auth вместо (или вместе с) .env:
+# AuthType Basic
+# AuthName "closed"
+# AuthUserFile /ПОЛНЫЙ/ПУТЬ/на/Timeweb/_cbridge/.htpasswd
+# Require valid-user

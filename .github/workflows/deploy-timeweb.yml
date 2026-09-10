@@ -105,3 +105,32 @@ jobs:
           local-dir: ./sad/out/
           server-dir: /biznes-ip.ru/public_html/sad/
           dangerous-clean-slate: false
+
+  # PHP-ящик моста 1С. Не из Next.js out/, не попадает на GitHub Pages.
+  # .env и data/*.json на сервере не затираем (exclude + clean-slate: false).
+  deploy-bridge-mailbox:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy PHP mailbox to /_cbridge/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./hosting/bridge-mailbox/
+          server-dir: /biznes-ip.ru/public_html/_cbridge/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.env
+            **/.htpasswd
+            **/data/*.json
+            **/data/*.jsonl
+            **/data/**/*.json
+            **/data/**/*.jsonl
+            **/*.md
+            **/.gitignore

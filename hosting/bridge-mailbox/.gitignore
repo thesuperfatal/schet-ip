@@ -1,0 +1,6 @@
+.env
+.htpasswd
+data/*.json
+data/*.jsonl
+data/**/*.json
+data/**/*.jsonl

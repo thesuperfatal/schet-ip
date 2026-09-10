@@ -98,3 +98,15 @@ git push
 | Deploy to GitHub Pages | github.io (запасной) |
 
 Основной сайт для клиентов — **biznes-ip.ru** на Timeweb.
+
+---
+
+## Почтовый ящик моста 1С (`/_cbridge/`) — не публичная страница
+
+Отдельный job **deploy-bridge-mailbox** заливает PHP в `public_html/_cbridge/`.  
+Это не Next.js и не GitHub Pages: 1С не может сделать HTTP PUT на статику Pages.
+
+- Счета/акты не затрагиваются (`dangerous-clean-slate: false`, другая папка).
+- В меню и sitemap папки нет. В `robots.txt` — `Disallow: /_cbridge/`.
+- После первого деплоя **один раз** создай на сервере `.env` из `.env.example` (ключ не коммитить).
+- Как пользоваться: `hosting/bridge-mailbox/README.md` и в репозитории интеграции `мост-1с-cursor/07-обмен-через-сайт.md`.

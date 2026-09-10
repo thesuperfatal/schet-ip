@@ -32,6 +32,15 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!hosting/bridge-mailbox/.env.example
+
+# секреты и JSON моста на хостинге (не в git)
+hosting/bridge-mailbox/.env
+hosting/bridge-mailbox/.htpasswd
+hosting/bridge-mailbox/data/*.json
+hosting/bridge-mailbox/data/*.jsonl
+hosting/bridge-mailbox/data/**/*.json
+hosting/bridge-mailbox/data/**/*.jsonl
 
 # vercel
 .vercel
